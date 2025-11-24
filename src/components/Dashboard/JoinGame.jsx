@@ -2,7 +2,7 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { API_URL,AUTH_JOINGAME } from '../../api';
+import { API_URL,AUTH_JOINGAME,AUTH_TOTAL_ACCEPTED } from '../../api';
 
 function JoinGame() {
      const [games,setGames] = useState([]);
@@ -66,7 +66,7 @@ function JoinGame() {
                  onClick={async() => {
                     try {
                       const res = await axios.get(
-                     `http://localhost:5000/api/auth/total-accepted/${game.id}`,
+                     `${API_URL}${AUTH_TOTAL_ACCEPTED}/${game.id}`,
                       { withCredentials: true }
                       );
 

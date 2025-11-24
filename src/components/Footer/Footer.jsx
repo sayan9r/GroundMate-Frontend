@@ -122,7 +122,7 @@ export default function Footer({
             <div className="mt-3 flex items-center gap-3">
               {/* Social icons (SVG) */}
               <a
-                href="#"
+                href="https://x.com/Sayan9r"
                 aria-label="GroundMate on Twitter"
                 className="p-2 rounded-md hover:bg-white/5 transition-colors"
               >
@@ -132,7 +132,7 @@ export default function Footer({
               </a>
 
               <a
-                href="#"
+                href="https://www.instagram.com/sayan_9r/"
                 aria-label="GroundMate on Instagram"
                 className="p-2 rounded-md hover:bg-white/5 transition-colors"
               >
