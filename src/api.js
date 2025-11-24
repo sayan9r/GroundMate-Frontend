@@ -2,7 +2,7 @@
 export const API_URL = import.meta.env.VITE_API_URL || import.meta.env.API_URL ;
 
 //Auth path segments and endpoints
-export const AUTH_BASE = 'api/auth';
+export const AUTH_BASE = '/api/auth';
 export const AUTH_LOGIN = `${AUTH_BASE}/login`;
 export const AUTH_LOGOUT = `${AUTH_BASE}/logout`;
 export const AUTH_REGISTER = `${AUTH_BASE}/register`;
