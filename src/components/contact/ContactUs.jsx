@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL ,AUTH_CONTACTUS} from "../../api";
 
 function ContactUs() {
   const [form, setForm] = useState({
@@ -18,7 +19,7 @@ function ContactUs() {
   const handleSubmit = async (e) => {
     e.preventDefault();
         try{
-            const res = await axios.post("http://localhost:5000/api/auth/contactus",form,{ withCredentials: true });
+            const res = await axios.post(`${API_URL}${AUTH_CONTACTUS}`,form,{ withCredentials: true });
             navigate("/");
 
         }catch(err){

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { API_URL,AUTH_JOINREQUEST,AUTH_JOINSTATUS } from "../../../api";
 
 function JoinGamePopup() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +20,7 @@ function JoinGamePopup() {
       if (confirmJoin) {
         try {
           await axios.post(
-            "http://localhost:5000/api/auth/joinrequest",
+            `${API_URL}${AUTH_JOINREQUEST}`,
             { gameId: id },
             { withCredentials: true }
           );
@@ -42,7 +43,7 @@ function JoinGamePopup() {
     const interval = setInterval(async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/auth/joinstatus/${id}`,
+          `${API_URL}${AUTH_JOINSTATUS}/${id}`,
           { withCredentials: true }
         );
 

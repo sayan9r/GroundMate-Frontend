@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { X, RefreshCcw } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { API_URL,AUTH_GAME_REQUESTS,AUTH_TOTAL_ACCEPTED,AUTH_UPDATE_REQUESTS } from "../../../api";
+
 
 function ViewDetailsPopup({ gameId, onClose }) {
   const [requests, setRequests] = useState([]);
@@ -15,14 +17,14 @@ function ViewDetailsPopup({ gameId, onClose }) {
     try {
       setLoading(true);
       const res = await axios.get(
-        `http://localhost:5000/api/auth/game-requests/${gameId}`,
+        `${API_URL}${AUTH_GAME_REQUESTS}/${gameId}`,
         { withCredentials: true }
       );
       setRequests(res.data);
 
       // Check if the team is full
       const res2 = await axios.get(
-        `http://localhost:5000/api/auth/total-accepted/${gameId}`,
+          `${API_URL}${AUTH_TOTAL_ACCEPTED}/${gameId}`,
         { withCredentials: true }
       );
       const { acceptedCount, teamLength, teamFull } = res2.data;
@@ -51,7 +53,7 @@ function ViewDetailsPopup({ gameId, onClose }) {
   const handleAction = async (requestId, action) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/auth/update-requests/${requestId}`,
+        `${API_URL}${AUTH_UPDATE_REQUESTS}/${requestId}`,
         { status: action },
         { withCredentials: true }
       );
@@ -65,7 +67,7 @@ function ViewDetailsPopup({ gameId, onClose }) {
 
       // Check team status again
       const res2 = await axios.get(
-        `http://localhost:5000/api/auth/total-accepted/${gameId}`,
+        `${API_URL}${AUTH_TOTAL_ACCEPTED}/${gameId}`,
         { withCredentials: true }
       );
       const { acceptedCount, teamLength, teamFull } = res2.data;

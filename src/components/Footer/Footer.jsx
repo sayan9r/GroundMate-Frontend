@@ -11,7 +11,7 @@ import React from "react";
  */
 export default function Footer({
   logoSrc = null,
-  email = "hello@groundmate.app",
+  email = "project9ro@gmail.com",
   phone = "+91-74072-64892",
   links = [
     { label: "Home", href: "/" },

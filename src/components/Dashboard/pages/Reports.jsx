@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { NavbarButton } from '../../ui/resizable-navbar';
 import { useNavigate } from 'react-router-dom';
+import { API_URL,AUTH_LASTCREATEGAME } from '../../../api';
 
 function Reports() {
   const [games,setGames] = useState([]);
@@ -13,7 +14,7 @@ function Reports() {
 
     const fetchGame = async () => {
       try{
-        const res = await axios.get("http://localhost:5000/api/auth/lastcreategame");
+        const res = await axios.get(`${API_URL}${AUTH_LASTCREATEGAME}`);
         setGames(res.data)
 
       }catch(err){

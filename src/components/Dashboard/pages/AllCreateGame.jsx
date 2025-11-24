@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ViewDetailsPopup from "./ViewDetailsPopup"; // 👈 import popup
+import { API_URL,AUTH_ALLCREATEGAME } from "../../../api";
 
 function AllCreateGame() {
   const [games, setGames] = useState([]);
@@ -10,7 +11,7 @@ function AllCreateGame() {
   useEffect(() => {
     const fetchGame = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/allcreategame", {
+        const res = await axios.get(`${API_URL}${AUTH_ALLCREATEGAME}`, {
           withCredentials: true,
         });
         setGames(res.data);

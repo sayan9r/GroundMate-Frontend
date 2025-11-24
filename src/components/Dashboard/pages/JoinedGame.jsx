@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { API_URL,AUTH_MYJOINEDGAMES } from "../../../api";
 
 function JoinedGame() {
   const [games, setGames] = useState([]);
@@ -8,7 +9,7 @@ function JoinedGame() {
   useEffect(() => {
     const fetchJoinedGames = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/myjoinedgames", {
+        const res = await axios.get(`${API_URL}${AUTH_MYJOINEDGAMES}`, {
           withCredentials: true,
         });
         console.log(res.data);

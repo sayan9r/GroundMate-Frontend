@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import CustomButton from '../CustomBUtton'
 import { Link, useNavigate } from 'react-router-dom'
+import { API_URL, AUTH_LOGIN } from '../../api';
 
 
 function Login({setUser}) {
@@ -23,7 +24,7 @@ function Login({setUser}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
      try{
-            const res = await axios.post("http://localhost:5000/api/auth/login",form,{ withCredentials: true });
+            const res = await axios.post(`${API_URL}${AUTH_LOGIN}`, form, { withCredentials: true });
             setUser(res.data.user);
             navigate("/dashboard");
 

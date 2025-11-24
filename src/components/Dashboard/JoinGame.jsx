@@ -2,6 +2,7 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_URL,AUTH_JOINGAME } from '../../api';
 
 function JoinGame() {
      const [games,setGames] = useState([]);
@@ -13,7 +14,7 @@ function JoinGame() {
     
         const fetchGame = async () => {
           try{
-            const res = await axios.get("http://localhost:5000/api/auth/joingame",{ withCredentials: true });
+            const res = await axios.get(`${API_URL}${AUTH_JOINGAME}`,{ withCredentials: true });
             setGames(res.data)
             
     

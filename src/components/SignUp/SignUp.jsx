@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import CustomButton from '../CustomBUtton'
 import { Link, useNavigate } from 'react-router-dom'
+import { API_URL, AUTH_REGISTER } from '../../api';
 
 
 function SignUp({setUser}) {
@@ -26,7 +27,7 @@ function SignUp({setUser}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-            const res = await axios.post("http://localhost:5000/api/auth/register",form,{ withCredentials: true });
+            const res = await axios.post(`${API_URL}${AUTH_REGISTER}`,form,{ withCredentials: true });
             setUser(res.data.user);
             navigate("/");
 

@@ -13,6 +13,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Reports from "./pages/Reports";
+import { API_URL,AUTH_LOGOUT } from '../../api';
 
 
 function Dashboard({user,setUser}) {
@@ -20,7 +21,7 @@ function Dashboard({user,setUser}) {
   const navigate = useNavigate();
   // activate Logout button
   const handleLogout = async () => {
-    await axios.post("http://localhost:5000/api/auth/logout");
+    await axios.post(`${API_URL}${AUTH_LOGOUT}`, {}, { withCredentials: true });
     setUser(null);
     navigate("/");
   }

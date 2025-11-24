@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { API_URL, AUTH_STARTGAME } from "../../../api";
+
 
 function StartGame() {
   const { gameId } = useParams();
@@ -14,7 +16,7 @@ function StartGame() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/auth/startgame/${gameId}`,
+          `${API_URL}${AUTH_STARTGAME}/${gameId}`,
           { withCredentials: true }
         );
         setGame(res.data.game);

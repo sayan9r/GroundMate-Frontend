@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL,AUTH_CREATEGAME } from "../../api";
 
 function CreateGame({user}) {
   const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ function CreateGame({user}) {
    e.preventDefault();
 
     try{
-            const res = await axios.post("http://localhost:5000/api/auth/creategame",formData,{ withCredentials: true });
+            const res = await axios.post(`${API_URL}${AUTH_CREATEGAME}`,formData,{ withCredentials: true });
            // setUser(res.data.user);
             navigate("/dashboard");
 

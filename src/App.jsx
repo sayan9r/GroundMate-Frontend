@@ -19,6 +19,7 @@ import TurfGame from './components/Dashboard/TurfGame.jsx';
 import StartGame from './components/Dashboard/pages/StartGame.jsx';
 import JoinedGame from './components/Dashboard/pages/JoinedGame.jsx';
 import Community from './components/commmunity/Community.jsx';
+import { API_URL,AUTH_BASE } from './api.js';
 
 
 axios.defaults.withCredentials = true;
@@ -32,7 +33,7 @@ function App() {
   useEffect(()=> {
      const fetchUser = async ()=> {
       try{
-        const res = await axios.get("http://localhost:5000/api/auth/me");
+        const res = await axios.get(`${API_URL}${AUTH_BASE}/me`);
         setUser(res.data);
         setLoading(false);
 
