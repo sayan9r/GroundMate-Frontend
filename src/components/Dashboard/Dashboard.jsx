@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 import {
   IconArrowLeft,
   IconBrandTabler,
   IconSettings,
-  IconUserBolt,
   IconPlus,
   IconUserPlus,
   IconBuildingStadium,
@@ -13,118 +12,94 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Reports from "./pages/Reports";
-import { API_URL,AUTH_LOGOUT } from '../../api';
+import { API_URL, AUTH_LOGOUT } from '../../api';
 
-
-function Dashboard({user,setUser}) {
-    
+function Dashboard({ user, setUser }) {
   const navigate = useNavigate();
-  // activate Logout button
+
   const handleLogout = async () => {
     await axios.post(`${API_URL}${AUTH_LOGOUT}`, {}, { withCredentials: true });
     setUser(null);
     navigate("/");
-  }
+  };
 
-    const links = [
-    {
-      label: "Dashboard",
-      to: "/dashboard",
-      icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-      ),
-    },
-    {
-      label: "Create Game",
-      to: "/dashboard/creategame",
-      icon: (
-        <IconPlus className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-      ),
-    },
-    {
-      label: "Join Game",
-      to: "/dashboard/joingame",
-      icon: (
-        <IconUserPlus className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-      ),
-    },
-    {
-      label: "community",
-      to: "/community",
-      icon: (
-        <IconUsersGroup className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-      ),
-    },
-    {
-      label: "Turf Game",
-      to: "/dashboard/turfgame",
-      icon: (
-        <IconBuildingStadium className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-      ),
-    },
-    {
-      label: "Seetings",
-      to: "#",
-      icon: (
-        <IconSettings className="text-white dark:text-neutral-200 h-5 w-5 shrink-0" />
-      ),
-    },
-    {
-      label: "Logout",
-      icon: (
-        <IconArrowLeft  className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-      ), 
-      onClick: (handleLogout) => handleLogout()
-    },
+  const links = [
+    { label: "Dashboard", to: "/dashboard", icon: <IconBrandTabler className="h-5 w-5" /> },
+    { label: "Create Game", to: "/dashboard/creategame", icon: <IconPlus className="h-5 w-5" /> },
+    { label: "Join Game", to: "/dashboard/joingame", icon: <IconUserPlus className="h-5 w-5" /> },
+    { label: "Community", to: "/community", icon: <IconUsersGroup className="h-5 w-5" /> },
+    { label: "Turf Game", to: "/dashboard/turfgame", icon: <IconBuildingStadium className="h-5 w-5" /> },
+    { label: "Settings", to: "#", icon: <IconSettings className="h-5 w-5" /> },
+    { label: "Logout", icon: <IconArrowLeft className="h-5 w-5" />, onClick: handleLogout },
   ];
+
   return (
-   <div className="min-h-screen w-full bg-gray-100 flex justify-center items-start  py-10 px-4">
-      {/* Main container */}
-      <div className="w-full ml-5 flex  flex-col md:flex-row gap-6 h-max ">
-        
-        {/* --- LEFT DIV (Profile Section) --- */}
-        <div className="bg-gray-700 shadow-md rounded-xl p-6 flex flex-col items-center gap-3 md:w-1/4">
-           {/* Profile Picture */}
-           <img
-             src="groot.jpg"
-             alt="Profile"
-             className="w-24 h-24 rounded-full object-cover border-2 border-gray-300"
-            />
+    <div className="min-h-screen w-full bg-black">
 
-            {/* Username */}
-            <h2 className="text-xl font-semibold text-white">{user.name}</h2>
+      {/* Main layout */}
+      <div className="flex flex-col md:flex-row min-h-screen w-full">
 
-            {/* City */}
-            <div className="flex items-center justify-center gap-2 text-gray-500" >
-                 <IconMapPin className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-                 <p className="text-amber-50">{user.city}</p>
-            </div>
-            
+        {/* ===== LEFT SIDEBAR ===== */}
+        <div
+          className="
+            bg-gradient-to-r from-gray-900 to-black
+            p-4 sm:p-6
+            flex flex-col items-center
+            w-full md:w-1/5
+          "
+        >
+          {/* Profile */}
+          <img
+            src="groot.jpg"
+            alt="Profile"
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover
+            border-2 border-blue-800 shadow-lg"
+          />
 
-            {/* Navigation Links */}
-            <div className="w-full mt-6 flex flex-col gap-3">
-             {links.map((link, index) => (
+          <h2 className="mt-3 text-lg sm:text-xl font-bold
+            bg-gradient-to-r from-cyan-400 to-blue-500
+            bg-clip-text text-transparent">
+            {user.name}
+          </h2>
+
+          <div className="flex items-center gap-2 text-gray-400 mt-1 text-sm">
+            <IconMapPin className="h-4 w-4 text-blue-400" />
+            {user.city}
+          </div>
+
+          {/* Divider */}
+          <div className="w-full h-px bg-blue-900 my-4 sm:my-6 opacity-50" />
+
+          {/* Nav Links */}
+          <div className="w-full flex flex-col gap-1 sm:gap-2">
+            {links.map((link, index) => (
               <div
-              key={index}
-              onClick={() => (link.onClick ? link.onClick(handleLogout) : navigate(link.to))}
-              className="flex items-center gap-3 cursor-pointer hover:bg-gray-200 p-2 rounded-md transition"
+                key={index}
+                onClick={() =>
+                  link.onClick ? link.onClick() : navigate(link.to)
+                }
+                className="
+                  flex items-center gap-3 px-3 py-2
+                  rounded-lg text-gray-300 cursor-pointer
+                  hover:bg-blue-900/30 hover:text-white
+                  transition text-sm sm:text-base
+                "
               >
-              {link.icon}
-              <span className="text-white font-medium">{link.label}</span>
+                <span className="text-blue-400">{link.icon}</span>
+                <span className="font-medium">{link.label}</span>
               </div>
-              ))}
-
-            </div>
+            ))}
+          </div>
         </div>
 
-        {/* --- RIGHT DIV (Stats & Reports Section) --- */}
-        <div className=" bg-gradient-to-r from-gray-700 via-gray-200 to-white shadow-md rounded-xl p-6 flex flex-col gap-6 mr-5 md:w-3/4">
-                <Reports/>
+        {/* ===== RIGHT CONTENT ===== */}
+        <div className="flex-1 bg-gradient-to-r from-black to-gray-800 p-4 sm:p-6 overflow-y-auto">
+          <Reports />
         </div>
 
       </div>
     </div>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

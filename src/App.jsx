@@ -15,7 +15,7 @@ import JoinGame from './components/Dashboard/JoinGame.jsx';
 import JoinGamePopup from './components/Dashboard/pages/JoinGamePopup.jsx';
 import ViewDetailsPopup from './components/Dashboard/pages/ViewDetailsPopup.jsx';
 import ContactUs from './components/contact/ContactUs.jsx';
-import TurfGame from './components/Dashboard/TurfGame.jsx';
+import TurfGame from './components/Turfgame/TurfGame.jsx';
 import StartGame from './components/Dashboard/pages/StartGame.jsx';
 import JoinedGame from './components/Dashboard/pages/JoinedGame.jsx';
 import Community from './components/commmunity/Community.jsx';
@@ -55,12 +55,14 @@ function App() {
 
   return (
    <Router>
-     <NavbarDemo user={user} setUser={setUser} />
+    {/* use navbar for fixed , all position */}
+     <NavbarDemo user={user} setUser={setUser} />   
      <Routes>
           <Route path="/" element={
             <>
               <BoxBody/>
               <About/>
+               <Footer/>
             </>} 
           /> 
          <Route path="/about" element={<About/>} />
@@ -81,7 +83,7 @@ function App() {
 
          
      </Routes>
-     <Footer/>
+    
    </Router>
    
   )

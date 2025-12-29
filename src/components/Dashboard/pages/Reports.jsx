@@ -1,139 +1,146 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { NavbarButton } from '../../ui/resizable-navbar';
 import { useNavigate } from 'react-router-dom';
-import { API_URL,AUTH_LASTCREATEGAME } from '../../../api';
+import { API_URL, AUTH_LASTCREATEGAME } from '../../../api';
 
 function Reports() {
-  const [games,setGames] = useState([]);
-  const [error,setError] = useState(null);
+  const [games, setGames] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-
-    useEffect(()=> {
-
+  useEffect(() => {
     const fetchGame = async () => {
-      try{
+      try {
         const res = await axios.get(`${API_URL}${AUTH_LASTCREATEGAME}`);
-        setGames(res.data)
-
-      }catch(err){
-         if (err.response && err.response.status === 404) {
-          setError("You haven’t created any game yet. PLz , create a game and make a community  ✌️✌️");
+        setGames(res.data);
+      } catch (err) {
+        if (err.response && err.response.status === 404) {
+          setError("You haven’t created any game yet. Create one and build your community ✌️");
         } else {
           setError("Something went wrong. Please try again later.");
         }
       }
-    }
+    };
     fetchGame();
-    },[]);
+  }, []);
 
   return (
+    <div className="min-h-screen px-6 py-2 text-white">
 
+      {/* Heading */}
+      <h3 className="text-3xl font-bold text-center mb-10
+        bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        Your Game Stats & Activity
+      </h3>
 
-    <>
-    
-     {/* Heading */}
-          <h3 className="text-2xl font-semibold text-black text-center">
-            Your Game Stats & Activity
+      {/* Main Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        {/* Game Details */}
+        <div className="bg-[#121212] border border-blue-900 rounded-xl p-6 space-y-3">
+          <h3 className="text-xl font-semibold 
+            bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
+            Last Created Game
           </h3>
-          
-          <div className="p-6">
-  {/* Three-column grid */}
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-    
-    {/* 1️⃣ Game Details */}
-    <div className="p-4 bg-white shadow-lg rounded-xl">
-      {error ? (
-        <p className="text-gray-600 text-center py-6">{error}</p>
-      ) : games ? (
-        <>
-          <h3 className="text-xl font-bold mb-6 text-gray-800"> Last Created Games</h3>
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">{games.sporttype}</h3>
-          <p><strong>City:</strong> {games.city}</p>
-          <p><strong>Team Length:</strong> {games.teamlength}</p>
-          <p><strong>Date:</strong> {games.gamedate}</p>
-          <p><strong>Start Time:</strong> {games.starttime}</p>
-          <p><strong>Description:</strong> {games.description}</p>
-        </>
-      ) : (
-        <p className="text-gray-500 text-center py-6">Loading...</p>
-      )}
+
+          {error ? (
+            <p className="text-gray-400 text-center">{error}</p>
+          ) : games ? (
+            <>
+              <p><span className="text-gray-400">Sport:</span> {games.sporttype}</p>
+              <p><span className="text-gray-400">City:</span> {games.city}</p>
+              <p><span className="text-gray-400">Team Size:</span> {games.teamlength}</p>
+              <p><span className="text-gray-400">Date:</span> {games.gamedate}</p>
+              <p><span className="text-gray-400">Start Time:</span> {games.starttime}</p>
+              <p className="text-gray-300 text-sm">{games.description}</p>
+            </>
+          ) : (
+            <p className="text-gray-500 text-center">Loading...</p>
+          )}
+        </div>
+
+        {/* Navigation */}
+        <div className="bg-[#121212] border border-blue-900 rounded-xl p-6 
+          flex flex-col justify-center gap-4">
+          <h3 className="text-xl font-semibold text-center 
+            bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+            Quick Actions
+          </h3>
+
+          <NavbarButton
+            className="bg-blue-900 hover:bg-blue-800 text-white"
+            onClick={() => navigate("/dashboard/allcreategame")}
+          >
+            All Created Games
+          </NavbarButton>
+
+          <NavbarButton
+            className="bg-blue-900 hover:bg-blue-800 text-white"
+            onClick={() => navigate("/dashboard/joinedgame")}
+          >
+            Joined Games
+          </NavbarButton>
+
+          <NavbarButton
+            className="bg-gradient-to-r from-cyan-600 to-blue-700 text-white"
+            onClick={() => navigate("/dashboard/creategame")}
+          >
+            Create New Game
+          </NavbarButton>
+        </div>
+
+        {/* Insights */}
+        <div className="bg-[#121212] border border-blue-900 rounded-xl p-6">
+          <h3 className="text-xl font-semibold mb-4 
+            bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+            Game Insights
+          </h3>
+
+          <ul className="space-y-2 text-gray-300">
+            <li>Total Games Created: <span className="font-bold text-white">12</span></li>
+            <li>Active Players: <span className="font-bold text-white">45</span></li>
+            <li>Avg Team Size: <span className="font-bold text-white">6</span></li>
+            <li>Upcoming Matches: <span className="font-bold text-white">3</span></li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
+        {[
+          { label: "Matches Played", value: 24, color: "text-blue-400" },
+          { label: "Wins", value: 14, color: "text-green-400" },
+          { label: "Team Members", value: 8, color: "text-purple-400" },
+        ].map((item, index) => (
+          <div
+            key={index}
+            className="bg-[#121212] border border-blue-900 rounded-xl p-6 text-center"
+          >
+            <h4 className="text-gray-400">{item.label}</h4>
+            <p className={`text-3xl font-bold mt-2 ${item.color}`}>
+              {item.value}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Reports */}
+      <div className="mt-10 bg-[#121212] border border-blue-900 rounded-xl p-6">
+        <h4 className="text-xl font-semibold mb-3 
+          bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+          Recent Reports
+        </h4>
+
+        <p className="text-gray-400 leading-relaxed">
+          • You played 2 matches this week <br />
+          • Win rate improved by 10% <br />
+          • 3 new players joined your community
+        </p>
+      </div>
+
     </div>
-
-    {/* 2️⃣ Navigation Buttons */}
-    <div className="p-4 bg-cyan-50 shadow-lg rounded-xl flex flex-col justify-center items-center">
-      <NavbarButton
-        variant="primary"
-        className="bg-black text-white w-full mb-4"
-        onClick={() => navigate("/dashboard/allcreategame")}
-      >
-        See All Created Games
-      </NavbarButton>
-
-      <NavbarButton
-        variant="primary"
-        className="bg-black text-white w-full mb-4"
-        onClick={() => navigate("/dashboard/joinedgame")}
-      >
-        See All joined Game
-      </NavbarButton>
-
-      <NavbarButton
-        variant="primary"
-        className="bg-black text-white w-full"
-        onClick={() => navigate("/dashboard/creategame")}
-      >
-        Create New Game
-      </NavbarButton>
-    </div>
-
-    {/* 3️⃣ Additional Info */}
-    <div className="p-4 bg-gray-100 shadow-lg rounded-xl">
-      <h3 className="text-lg font-semibold text-gray-800 mb-2">Your Game Insights</h3>
-      <ul className="text-gray-700 list-disc list-inside space-y-1">
-        <li>Total Games Created: <span className="font-semibold">12</span></li>
-        <li>Active Players: <span className="font-semibold">45</span></li>
-        <li>Average Team Size: <span className="font-semibold">6</span></li>
-        <li>Upcoming Matches: <span className="font-semibold">3</span></li>
-      </ul>
-    </div>
-
-  </div>
-
-  {/* Stats Section */}
-  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
-    <div className="bg-gray-50 p-4 rounded-lg shadow-sm text-center">
-      <h4 className="font-semibold text-gray-700">Matches Played</h4>
-      <p className="text-2xl font-bold text-blue-600 mt-2">24</p>
-    </div>
-
-    <div className="bg-gray-50 p-4 rounded-lg shadow-sm text-center">
-      <h4 className="font-semibold text-gray-700">Wins</h4>
-      <p className="text-2xl font-bold text-green-600 mt-2">14</p>
-    </div>
-
-    <div className="bg-gray-50 p-4 rounded-lg shadow-sm text-center">
-      <h4 className="font-semibold text-gray-700">Team Members</h4>
-      <p className="text-2xl font-bold text-purple-600 mt-2">8</p>
-    </div>
-  </div>
-
-  {/* Reports Section */}
-  <div className="mt-6">
-    <h4 className="text-lg font-semibold text-gray-800 mb-2">Recent Reports</h4>
-    <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-      <p className="text-gray-600">
-        • You played 2 matches this week.  
-        <br />• Your win rate improved by 10%.  
-        <br />• 3 new players joined your community.
-      </p>
-    </div>
-  </div>
-</div>
-
-    </>
-  )
+  );
 }
 
-export default Reports
+export default Reports;

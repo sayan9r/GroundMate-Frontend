@@ -29,17 +29,17 @@ function ContactUs() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-200 to-white flex flex-col items-center justify-center p-6 ">
-      <div className="max-w-5xl w-full bg-white rounded-2xl shadow-xl p-8 md:p-12 grid md:grid-cols-2 gap-10">
+    <div className="min-h-screen bg-gradient-to-b  from-black via-blue-950 to-gray-900 flex flex-col items-center justify-center p-6 ">
+      <div className="max-w-5xl w-full bg-transparent rounded-2xl shadow-2xl p-8 md:p-12 grid md:grid-cols-2 gap-10">
         
         {/* Left section - Contact info */}
         <div className="space-y-6">
           <h2 className="text-3xl font-bold text-green-700">Contact GroundMate</h2>
-          <p className="text-gray-600">
+          <p className="text-gray-400">
             Have questions, feedback, or partnership ideas? We’d love to hear from you!
           </p>
 
-          <div className="space-y-4 text-gray-700">
+          <div className="space-y-4 text-gray-400">
             <div className="flex items-center gap-3">
               <Mail className="text-green-600" /> 
               <span>support@groundmate.in</span>
@@ -70,38 +70,38 @@ function ContactUs() {
           <h3 className="text-2xl font-semibold text-green-700 mb-2">Send us a message</h3>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <label className="block text-sm font-medium text-gray-400 mb-1">Name</label>
             <input
               type="text"
               name="name"
               value={form.name}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full border border-gray-300  text-amber-50 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-gray-400 mb-1">Email</label>
             <input
               type="email"
               name="email"
               value={form.email}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full border border-gray-300 text-amber-50 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+            <label className="block text-sm font-medium text-gray-400 mb-1">Message</label>
             <textarea
               name="message"
               value={form.message}
               onChange={handleChange}
               rows="5"
               required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full border border-gray-300  text-amber-50 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
             ></textarea>
           </div>
 

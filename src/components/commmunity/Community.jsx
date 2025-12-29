@@ -11,10 +11,23 @@ export default function Community() {
         communities, host tournaments, share your match stories, and connect
         with other players.
       </p>
-      <div className="flex items-center space-x-2 bg-green-100 text-green-700 px-4 py-2 rounded-full shadow-md">
-        <IconHourglassHigh size={20} />
-        <span className="font-semibold">Coming Soon with Community</span>
-      </div>
+     <div className="flex flex-col space-y-3">
+  <div className="flex items-center space-x-2 bg-green-100 text-green-700 px-4 py-2 rounded-full shadow-md">
+    <IconHourglassHigh size={20} />
+    <button className="font-semibold">Make a Community</button>
+  </div>
+
+  <div className="flex items-center space-x-2 bg-green-100 text-green-700 px-4 py-2 rounded-full shadow-md">
+    <IconHourglassHigh size={20} />
+    <button className="font-semibold">join a Community</button>
+  </div>
+
+  <div className="flex items-center space-x-2 bg-green-100 text-green-700 px-4 py-2 rounded-full shadow-md">
+    <IconHourglassHigh size={20} />
+    <button className="font-semibold">Global Community</button>
+  </div>
+</div>
+
     </div>
   );
 }
