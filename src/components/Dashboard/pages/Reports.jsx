@@ -38,7 +38,7 @@ function Reports() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
         {/* Game Details */}
-        <div className="bg-[#121212] border border-blue-900 rounded-xl p-6 space-y-3">
+        <div className="bg-black border border-transparent rounded-xl p-6 space-y-3 hover:border-blue-700">
           <h3 className="text-xl font-semibold 
             bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
             Last Created Game
@@ -61,8 +61,8 @@ function Reports() {
         </div>
 
         {/* Navigation */}
-        <div className="bg-[#121212] border border-blue-900 rounded-xl p-6 
-          flex flex-col justify-center gap-4">
+        <div className="bg-black border border-transparent  rounded-xl p-6 
+          flex flex-col justify-center gap-4 hover:border-blue-700">
           <h3 className="text-xl font-semibold text-center 
             bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
             Quick Actions
@@ -91,7 +91,7 @@ function Reports() {
         </div>
 
         {/* Insights */}
-        <div className="bg-[#121212] border border-blue-900 rounded-xl p-6">
+        <div className="bg-black border border-transparent  rounded-xl p-6 hover:border-blue-700 ">
           <h3 className="text-xl font-semibold mb-4 
             bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
             Game Insights
@@ -126,7 +126,7 @@ function Reports() {
       </div>
 
       {/* Reports */}
-      <div className="mt-10 bg-[#121212] border border-blue-900 rounded-xl p-6">
+      <div className="mt-10 bg-black border border-transparent rounded-xl p-6 hover:border-blue-700">
         <h4 className="text-xl font-semibold mb-3 
           bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
           Recent Reports

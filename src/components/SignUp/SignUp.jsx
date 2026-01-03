@@ -39,8 +39,11 @@ function SignUp({setUser}) {
   }
 
   return (
-   <div className='bg-gray-200 p-2 h-screen'>
-     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
+   <div className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat "
+  style={{
+     backgroundImage: "url('././public/covar_image.jpg')",
+  }}>
+     <div className="max-w-md w-full mx-auto p-6 bg-gradient-to-b  from-blue-100 via-blue-50 to-white backdrop-blur-md rounded-lg shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
       <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">

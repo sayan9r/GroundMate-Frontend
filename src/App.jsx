@@ -20,6 +20,7 @@ import StartGame from './components/Dashboard/pages/StartGame.jsx';
 import JoinedGame from './components/Dashboard/pages/JoinedGame.jsx';
 import Community from './components/commmunity/Community.jsx';
 import { API_URL,AUTH_BASE } from './api.js';
+import MakeCommunity from './components/commmunity/MakeCommunity.jsx';
 
 
 axios.defaults.withCredentials = true;
@@ -79,6 +80,8 @@ function App() {
          <Route path="/dashboard/turfgame" element={<TurfGame/>}/>
          <Route path="/dashboard/startgame/:gameId" element={<StartGame />} />
          <Route path="/dashboard/joinedgame" element={<JoinedGame />} />
+         <Route path="/dashboard/community/makecommunity" element={<MakeCommunity />} />
+
          
 
          

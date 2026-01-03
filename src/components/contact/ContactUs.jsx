@@ -29,8 +29,8 @@ function ContactUs() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b  from-black via-blue-950 to-gray-900 flex flex-col items-center justify-center p-6 ">
-      <div className="max-w-5xl w-full bg-transparent rounded-2xl shadow-2xl p-8 md:p-12 grid md:grid-cols-2 gap-10">
+    <div className="min-h-screen bg-gradient-to-b  from-black via-blue-950 to-gray-950 flex flex-col items-center justify-center p-6 ">
+      <div className="max-w-5xl w-full bg-transparent rounded-4xl shadow-fuchsia-800 p-8 md:p-12 grid md:grid-cols-2 gap-10 border-2 border-l-fuchsia-600 border-t-fuchsia-600 ">
         
         {/* Left section - Contact info */}
         <div className="space-y-6">
