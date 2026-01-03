@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import CustomButton from '../CustomBUtton'
 import { Link, useNavigate } from 'react-router-dom'
 import { API_URL, AUTH_LOGIN } from '../../api';
+import signupBg from '././../../assets/covar_image.jpg';
 
 
 function Login({setUser}) {
@@ -37,9 +38,8 @@ function Login({setUser}) {
 
   return (
    <div className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat "
-  style={{
-     backgroundImage: "url('././public/covar_image.jpg')",
-  }}>
+        style={{ backgroundImage: `url(${signupBg})` }}
+ >
      <div className="max-w-md w-full mx-auto p-6 bg-gradient-to-b  from-blue-100 via-blue-50 to-white backdrop-blur-md rounded-lg shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
       <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
        {error && <p className='text-red-500 mb-4'> {error} </p>}
