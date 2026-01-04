@@ -34,7 +34,7 @@ function Dashboard({ user, setUser }) {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-black">
+    <div className="min-h-screen w-full bg-black border-2  border-t-blue-600">
 
       {/* Main layout */}
       <div className="flex flex-col md:flex-row min-h-screen w-full">
@@ -42,7 +42,7 @@ function Dashboard({ user, setUser }) {
         {/* ===== LEFT SIDEBAR ===== */}
         <div
           className="
-            bg-gradient-to-r from-gray-900 to-black
+            bg-gradient-to-r from-gray-900 to-black border border-r-blue-500
             p-4 sm:p-6
             flex flex-col items-center
             w-full md:w-1/5
