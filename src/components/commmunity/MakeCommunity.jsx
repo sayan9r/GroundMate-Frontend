@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { API_URL,AUTH_CREATEGAME } from "../../api";
+import { API_URL,AUTH_CREATEGAME, NEWCOMMUNITY } from "../../api";
 
 function MakeCommunity() {
     const [formData, setFormData] = useState({
-    Name: "",
+    name: "",
     city: "",
     status: "",
     description: "",
@@ -13,7 +13,8 @@ function MakeCommunity() {
 
   
   const navigate = useNavigate();
-  const [error,setError] = useState()
+  const [error,setError] = useState();
+  const [community,setCommunity] = useState();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,13 +25,13 @@ function MakeCommunity() {
    e.preventDefault();
 
     try{
-            const res = await axios.post(`${API_URL}${AUTH_CREATEGAME}`,formData,{ withCredentials: true });
-           // setUser(res.data.user);
-            navigate("/dashboard");
+            const res = await axios.post(`${API_URL}${NEWCOMMUNITY}`,formData,{ withCredentials: true });
+            setCommunity(res.data);
+            navigate("/community/communitys-dashboard");
 
         }catch(err){
             console.error("Login error:", err.response?.data || err.message);
-            setError(err.response?.data?.message || "Register failed");
+            setError(err.response?.data?.message || "Failed to create community");
         }
  };
   return (
@@ -47,16 +48,16 @@ function MakeCommunity() {
          {/* Name */}
         <div className="mb-4">
           <label
-            htmlFor="Name"
+            htmlFor="name"
             className="block text-gray-700 text-sm font-semibold mb-2"
           >
             Name
           </label>
           <input
             type="text"
-            id="Name"
-            name="Name"
-            value={formData.Name}
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             placeholder="Enter community name"
             required
@@ -89,7 +90,7 @@ function MakeCommunity() {
             htmlFor="status"
             className="block text-gray-700 text-sm font-semibold mb-2"
           >
-            Sport Type
+            Community Type
           </label>
           <select
             id="status"
@@ -100,8 +101,8 @@ function MakeCommunity() {
             className="w-full border rounded-md px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">Select Type</option>
-            <option value="football">Public</option>
-            <option value="cricket">Private</option>  
+            <option value="public">Public</option>
+            <option value="private">Private</option>  
           </select>
         </div>
 
@@ -125,6 +126,8 @@ function MakeCommunity() {
             className="w-full border rounded-md px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           ></textarea>
         </div>
+
+        {error && <p className='text-red-500  mb-4'> {error} </p>}
 
         {/* Submit Button */}
         <button

@@ -21,6 +21,7 @@ import JoinedGame from './components/Dashboard/pages/JoinedGame.jsx';
 import Community from './components/commmunity/Community.jsx';
 import { API_URL,AUTH_BASE } from './api.js';
 import MakeCommunity from './components/commmunity/MakeCommunity.jsx';
+import Community_Dashboard from './components/commmunity/Community_Dashboard.jsx';
 
 
 axios.defaults.withCredentials = true;
@@ -68,7 +69,6 @@ function App() {
           /> 
          <Route path="/about" element={<About/>} />
          <Route path="/contact" element={<ContactUs/>} />
-         <Route path="/community" element={<Community/>} />
          <Route path="/signup" element={user ? <Navigate to="/" /> : <SignUp setUser={setUser}/>}/>
          <Route path="/login" element={user ? <Navigate to="/" /> : <Login setUser={setUser}/>}/> 
          <Route path="/dashboard" element={user ? <Dashboard user={user} setUser={setUser}/> : <Login setUser={setUser}/> } />
@@ -80,7 +80,9 @@ function App() {
          <Route path="/dashboard/turfgame" element={<TurfGame/>}/>
          <Route path="/dashboard/startgame/:gameId" element={<StartGame />} />
          <Route path="/dashboard/joinedgame" element={<JoinedGame />} />
-         <Route path="/dashboard/community/makecommunity" element={<MakeCommunity />} />
+         <Route path="/community" element={<Community/>} />
+         <Route path="/community/makecommunity" element={<MakeCommunity />} />
+         <Route path="/community/communitys-dashboard" element={<Community_Dashboard />} />
 
          
 

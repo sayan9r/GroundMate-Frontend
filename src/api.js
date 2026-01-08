@@ -4,6 +4,7 @@ export const API_URL = import.meta.env.VITE_API_URL || import.meta.env.API_URL;
 // Auth path segments
 export const AUTH_BASE = "/api/auth";
 export const AUTH_USER = "/api/users";
+export const COMMUNITY = "/api/community";
 
 // Auth Endpoints
 export const AUTH_LOGIN = `${AUTH_BASE}/login`;
@@ -23,3 +24,6 @@ export const AUTH_STARTGAME = `${AUTH_USER}/startgame`;
 export const AUTH_GAME_REQUESTS = `${AUTH_USER}/game-requests`;
 export const AUTH_TOTAL_ACCEPTED = `${AUTH_USER}/total-accepted`;
 export const AUTH_UPDATE_REQUESTS = `${AUTH_USER}/update-requests`;
+
+// Community Endpoints
+export const NEWCOMMUNITY = `${COMMUNITY}/newcommunity`;
