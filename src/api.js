@@ -27,3 +27,4 @@ export const AUTH_UPDATE_REQUESTS = `${AUTH_USER}/update-requests`;
 
 // Community Endpoints
 export const NEWCOMMUNITY = `${COMMUNITY}/newcommunity`;
+export const CHECKCOMMUNITY = `${COMMUNITY}/checkcommunity`;

@@ -75,14 +75,14 @@ function App() {
          <Route path="/dashboard/creategame" element={user ? <CreateGame user={user}/> : <Login setUser={setUser}/>} />
          <Route path="/dashboard/allcreategame" element={<AllCreateGame/>} />
          <Route path="/dashboard/joingame" element={user ? <JoinGame/> : <Login setUser={setUser}/>}/>
-         <Route path="/joingamepopup/:id" element={<JoinGamePopup/>}/>
-         <Route path="/viewdetailspopup" element={<ViewDetailsPopup/>}/>
+         <Route path="/joingamepopup/:id" element={user ? <JoinGamePopup/> : <Login setUser={setUser}/> }/>
+         <Route path="/viewdetailspopup" element={user ? <ViewDetailsPopup/> : <Login setUser={setUser}/> }/>
          <Route path="/dashboard/turfgame" element={<TurfGame/>}/>
          <Route path="/dashboard/startgame/:gameId" element={<StartGame />} />
-         <Route path="/dashboard/joinedgame" element={<JoinedGame />} />
-         <Route path="/community" element={<Community/>} />
-         <Route path="/community/makecommunity" element={<MakeCommunity />} />
-         <Route path="/community/communitys-dashboard" element={<Community_Dashboard />} />
+         <Route path="/dashboard/joinedgame" element={user ? <JoinedGame /> : <Login setUser={setUser}/> } />
+         <Route path="/community" element={user ? <Community/> : <Login setUser={setUser}/> } />
+         <Route path="/community/makecommunity" element={user ? <MakeCommunity /> : <Login setUser={setUser}/>} />
+         <Route path="/community/communitys-dashboard" element={user ? <Community_Dashboard /> : <Login setUser={setUser}/>} />
 
          
 
