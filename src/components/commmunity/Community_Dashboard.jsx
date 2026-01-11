@@ -138,51 +138,55 @@ function Community_Dashboard() {
 </h1>
     <div className="space-y-3">
       {requests.map((req, index) => (
-        <div
-          key={req.id}
-          className={`
-            flex items-center justify-between
-            w-[95%] mx-auto
-            px-5 py-3 rounded-xl
-            border border-blue-700
-            ${
-              index % 3 === 0
-                ? "bg-[#0e1629]"
-                : index % 3 === 1
-                ? "bg-[#111b33]"
-                : "bg-[#0c1426]"
-            }
-          `}
-        >
-          {/* LEFT SIDE */}
-          <div className="flex items-center gap-4">
-            <div className="w-9 h-9 rounded-full bg-blue-700 flex items-center justify-center text-sm font-bold">
-              {req.name?.charAt(0)?.toUpperCase()}
-            </div>
+       <div
+  key={req.id}
+  className={`
+    flex flex-col sm:flex-row
+    sm:items-center sm:justify-between
+    gap-4
+    w-full sm:w-[95%] mx-auto
+    px-4 sm:px-5 py-4
+    rounded-xl
+    border border-blue-700
+    ${
+      index % 3 === 0
+        ? "bg-[#0e1629]"
+        : index % 3 === 1
+        ? "bg-[#111b33]"
+        : "bg-[#0c1426]"
+    }
+  `}
+>
+  {/* LEFT SIDE */}
+  <div className="flex items-start sm:items-center gap-4">
+    <div className="w-9 h-9 shrink-0 rounded-full bg-blue-700 flex items-center justify-center text-sm font-bold">
+      {req.name?.charAt(0)?.toUpperCase()}
+    </div>
 
-            <div>
-              <p className="font-medium text-white">
-                {req.name}
-              </p>
-              <p className="text-sm text-gray-400">
-                wants to join{" "}
-                <span className="text-blue-400">
-                  {req.community_name}
-                </span>
-              </p>
-            </div>
-          </div>
+    <div>
+      <p className="font-medium text-white text-sm sm:text-base">
+        {req.name}
+      </p>
+      <p className="text-xs sm:text-sm text-gray-400">
+        wants to join{" "}
+        <span className="text-blue-400">
+          {req.community_name}
+        </span>
+      </p>
+    </div>
+  </div>
 
-          {/* RIGHT SIDE ACTIONS */}
-          <div className="flex gap-2">
-            <button className="px-4 py-1.5 bg-green-600 hover:bg-green-700 rounded-full text-sm">
-              Accept
-            </button>
-            <button className="px-4 py-1.5 bg-red-600 hover:bg-red-700 rounded-full text-sm">
-              Reject
-            </button>
-          </div>
-        </div>
+  {/* RIGHT SIDE ACTIONS */}
+  <div className="flex gap-3 justify-end sm:justify-start">
+    <button className="px-4 py-1.5 bg-green-600 hover:bg-green-700 rounded-full text-xs sm:text-sm">
+      Accept
+    </button>
+    <button className="px-4 py-1.5 bg-red-600 hover:bg-red-700 rounded-full text-xs sm:text-sm">
+      Reject
+    </button>
+  </div>
+</div>
+
       ))}
     </div>
   </div>
