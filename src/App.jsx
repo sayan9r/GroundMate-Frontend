@@ -22,6 +22,7 @@ import Community from './components/commmunity/Community.jsx';
 import { API_URL,AUTH_BASE } from './api.js';
 import MakeCommunity from './components/commmunity/MakeCommunity.jsx';
 import Community_Dashboard from './components/commmunity/Community_Dashboard.jsx';
+import JoinCommunity from './components/commmunity/JoinCommunity.jsx';
 
 
 axios.defaults.withCredentials = true;
@@ -83,6 +84,7 @@ function App() {
          <Route path="/community" element={user ? <Community/> : <Login setUser={setUser}/> } />
          <Route path="/community/makecommunity" element={user ? <MakeCommunity /> : <Login setUser={setUser}/>} />
          <Route path="/community/communitys-dashboard" element={user ? <Community_Dashboard /> : <Login setUser={setUser}/>} />
+         <Route path="/community/join-community" element={user ? <JoinCommunity /> : <Login setUser={setUser}/>} />
 
          
 

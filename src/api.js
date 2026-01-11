@@ -28,3 +28,6 @@ export const AUTH_UPDATE_REQUESTS = `${AUTH_USER}/update-requests`;
 // Community Endpoints
 export const NEWCOMMUNITY = `${COMMUNITY}/newcommunity`;
 export const CHECKCOMMUNITY = `${COMMUNITY}/checkcommunity`;
+export const JOINCOMMUNITY = `${COMMUNITY}/join-community`;
+export const REQUESTJOIN = `${COMMUNITY}/request-join`;
+export const ALLREQUESTS = `${COMMUNITY}/all-requests`;

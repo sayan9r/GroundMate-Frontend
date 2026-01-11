@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { API_URL, CHECKCOMMUNITY } from "../../api";
+import { ALLREQUESTS, API_URL, CHECKCOMMUNITY } from "../../api";
 
 function Community_Dashboard() {
   const navigate = useNavigate();
@@ -15,9 +15,13 @@ function Community_Dashboard() {
         const res = await axios.get(`${API_URL}${CHECKCOMMUNITY}`, {
           withCredentials: true,
         });
-
         setCommunities(res.data.community || []);
-        setRequests(res.data.requests || []);
+
+        const res2 = await axios.get(`${API_URL}${ALLREQUESTS}`,{
+        withCredentials: true,
+        });
+        setRequests(res2.data.requests || []);
+        
       } catch (err) {
         console.error(err);
       } finally {
@@ -51,7 +55,9 @@ function Community_Dashboard() {
             + Create Community
           </button>
 
-          <button className="px-4 py-2 text-sm bg-green-600 hover:bg-green-700 rounded-full">
+          <button 
+          onClick={() => navigate("/community/join-community")} 
+          className="px-4 py-2 text-sm bg-green-600 hover:bg-green-700 rounded-full">
             Join Community
           </button>
 
@@ -91,7 +97,7 @@ function Community_Dashboard() {
       </div>
 
       {/* ================= COMMUNITY LIST ================= */}
-      <h1 className="text-xl font-semibold text-blue-500 mb-4">
+      <h1 className="text-xl font-semibold text-white mb-4">
         Your Communities
       </h1>
 
@@ -119,40 +125,70 @@ function Community_Dashboard() {
           </div>
         ))}
       </div>
+    
+  {/* ================= JOIN REQUESTS ================= */}
 
-      {/* ================= JOIN REQUESTS ================= */}
-      <h1 className="text-xl font-semibold text-blue-500 mb-4">
-        Join Requests
-      </h1>
 
-      {requests.length === 0 ? (
-        <p className="text-gray-400">No pending requests</p>
-      ) : (
-        <div className="space-y-4">
-          {requests.map((req) => (
-            <div
-              key={req.id}
-              className="flex justify-between items-center bg-[#0b1220] border border-blue-800 rounded-xl p-4"
-            >
-              <div>
-                <p className="font-medium">{req.username}</p>
-                <p className="text-sm text-gray-400">
-                  wants to join {req.communityName}
-                </p>
-              </div>
-
-              <div className="flex gap-2">
-                <button className="px-3 py-1 bg-green-600 rounded-full text-sm">
-                  Accept
-                </button>
-                <button className="px-3 py-1 bg-red-600 rounded-full text-sm">
-                  Reject
-                </button>
-              </div>
+{requests.length === 0 ? (
+  <p className="text-gray-400">No pending requests</p>
+) : (
+  <div className="bg-[#070d1a] border border-blue-900 rounded-2xl p-6 shadow-xl">
+    <h1 className="text-xl font-semibold text-white mb-4">
+  Join Requests
+</h1>
+    <div className="space-y-3">
+      {requests.map((req, index) => (
+        <div
+          key={req.id}
+          className={`
+            flex items-center justify-between
+            w-[95%] mx-auto
+            px-5 py-3 rounded-xl
+            border border-blue-700
+            ${
+              index % 3 === 0
+                ? "bg-[#0e1629]"
+                : index % 3 === 1
+                ? "bg-[#111b33]"
+                : "bg-[#0c1426]"
+            }
+          `}
+        >
+          {/* LEFT SIDE */}
+          <div className="flex items-center gap-4">
+            <div className="w-9 h-9 rounded-full bg-blue-700 flex items-center justify-center text-sm font-bold">
+              {req.name?.charAt(0)?.toUpperCase()}
             </div>
-          ))}
+
+            <div>
+              <p className="font-medium text-white">
+                {req.name}
+              </p>
+              <p className="text-sm text-gray-400">
+                wants to join{" "}
+                <span className="text-blue-400">
+                  {req.community_name}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          {/* RIGHT SIDE ACTIONS */}
+          <div className="flex gap-2">
+            <button className="px-4 py-1.5 bg-green-600 hover:bg-green-700 rounded-full text-sm">
+              Accept
+            </button>
+            <button className="px-4 py-1.5 bg-red-600 hover:bg-red-700 rounded-full text-sm">
+              Reject
+            </button>
+          </div>
         </div>
-      )}
+      ))}
+    </div>
+  </div>
+)}
+
+
     </div>
   );
 }
