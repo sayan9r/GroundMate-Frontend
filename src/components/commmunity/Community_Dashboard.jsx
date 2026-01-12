@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ALLREQUESTS, API_URL, CHECKCOMMUNITY } from "../../api";
+import { ACCEPTREQUEST, ALLREQUESTS, API_URL, CHECKCOMMUNITY, REJECTREQUEST } from "../../api";
 
 function Community_Dashboard() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [communities, setCommunities] = useState([]);
+  //const [communityLengths, setCommunityLengths] = useState([]);
   const [requests, setRequests] = useState([]); // future backend
 
   useEffect(() => {
@@ -16,6 +17,8 @@ function Community_Dashboard() {
           withCredentials: true,
         });
         setCommunities(res.data.community || []);
+        //setCommunityLengths(res.data.communityLength || []);
+        //console.log("Communities_length:", res.data.communityLength);
 
         const res2 = await axios.get(`${API_URL}${ALLREQUESTS}`,{
         withCredentials: true,
@@ -39,6 +42,49 @@ function Community_Dashboard() {
       </div>
     );
   }
+  const handleAccept = async (req) => {
+  try {
+    await axios.post(
+      `${API_URL}${ACCEPTREQUEST}`,
+      {
+        requestId: req.request_id,
+        //communityId: req.community_id,
+        //userId: req.user_id,
+      },
+      { withCredentials: true }
+    );
+
+    // Remove request from UI
+    setRequests((prev) =>
+      prev.filter((r) => r.request_id !== req.request_id)
+    );
+    
+
+    alert("✅ Request accepted");
+  } catch (err) {
+    console.error("Accept error:", err.response?.data || err.message);
+    alert(err.response?.data?.message || "Failed to accept request");
+  }
+};
+
+const handleReject = async (req) => {
+  try {
+    await axios.post(
+      `${API_URL}${REJECTREQUEST}`,
+      { requestId: req.request_id },
+      { withCredentials: true }
+    );
+
+    setRequests((prev) =>
+      prev.filter((r) => r.request_id !== req.request_id)
+    );
+
+    alert("❌ Request rejected");
+  } catch (err) {
+    alert("Failed to reject request");
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b  from-black via-blue-950 to-gray-950  shadow-md p-6 text-white">
@@ -113,7 +159,7 @@ function Community_Dashboard() {
               </h2>
               <p className="text-sm text-blue-400">📍 {community.city}</p>
               <p className="text-sm text-gray-300 mt-1">
-                👥 {community.members || 0} Members
+                👥 {community.community_length || 0} Members
               </p>
             </div>
 
@@ -178,12 +224,20 @@ function Community_Dashboard() {
 
   {/* RIGHT SIDE ACTIONS */}
   <div className="flex gap-3 justify-end sm:justify-start">
-    <button className="px-4 py-1.5 bg-green-600 hover:bg-green-700 rounded-full text-xs sm:text-sm">
-      Accept
-    </button>
-    <button className="px-4 py-1.5 bg-red-600 hover:bg-red-700 rounded-full text-xs sm:text-sm">
-      Reject
-    </button>
+   <button
+  onClick={() => handleAccept(req)}
+  className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded-full text-sm"
+>
+  Accept
+</button>
+
+<button
+  onClick={() => handleReject(req)}
+  className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-full text-sm"
+>
+  Reject
+</button>
+
   </div>
 </div>
 
