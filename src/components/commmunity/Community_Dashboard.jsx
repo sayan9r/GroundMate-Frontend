@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import MembersPopup from "./MembersPopup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ACCEPTREQUEST, ALLREQUESTS, API_URL, CHECKCOMMUNITY, REJECTREQUEST } from "../../api";
@@ -7,8 +8,9 @@ function Community_Dashboard() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [communities, setCommunities] = useState([]);
-  //const [communityLengths, setCommunityLengths] = useState([]);
   const [requests, setRequests] = useState([]); // future backend
+  const [showMembersPopup, setShowMembersPopup] = useState(false);
+  const [selectedCommunityId, setSelectedCommunityId] = useState(null);
 
   useEffect(() => {
     const checkCommunity = async () => {
@@ -17,9 +19,7 @@ function Community_Dashboard() {
           withCredentials: true,
         });
         setCommunities(res.data.community || []);
-        //setCommunityLengths(res.data.communityLength || []);
-        //console.log("Communities_length:", res.data.communityLength);
-
+       // console.log("Communities:", res.data.community);
         const res2 = await axios.get(`${API_URL}${ALLREQUESTS}`,{
         withCredentials: true,
         });
@@ -48,8 +48,6 @@ function Community_Dashboard() {
       `${API_URL}${ACCEPTREQUEST}`,
       {
         requestId: req.request_id,
-        //communityId: req.community_id,
-        //userId: req.user_id,
       },
       { withCredentials: true }
     );
@@ -58,7 +56,6 @@ function Community_Dashboard() {
     setRequests((prev) =>
       prev.filter((r) => r.request_id !== req.request_id)
     );
-    
 
     alert("✅ Request accepted");
   } catch (err) {
@@ -158,9 +155,16 @@ const handleReject = async (req) => {
                 {community.name}
               </h2>
               <p className="text-sm text-blue-400">📍 {community.city}</p>
-              <p className="text-sm text-gray-300 mt-1">
-                👥 {community.community_length || 0} Members
-              </p>
+             <p
+                className="text-sm text-gray-300 mt-1 cursor-pointer hover:text-blue-600"
+                onClick={() => {
+                  setSelectedCommunityId(community.id);
+                  setShowMembersPopup(true);
+                }}
+              >
+  👥 {community.community_length || 0} Members
+</p>
+
             </div>
 
             <img
@@ -245,6 +249,15 @@ const handleReject = async (req) => {
     </div>
   </div>
 )}
+
+           <MembersPopup
+              isOpen={showMembersPopup}
+              communityId={selectedCommunityId}
+              onClose={() => {
+                setShowMembersPopup(false);
+                setSelectedCommunityId(null);
+              }}
+            />
 
 
     </div>
