@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "../../api";
+import { API_URL, COMMUNITY } from "../../api";
 
 const MembersPopup = ({ isOpen, onClose, communityId }) => {
   const [members, setMembers] = useState([]);
@@ -13,7 +13,7 @@ const MembersPopup = ({ isOpen, onClose, communityId }) => {
     const fetchMembers = async () => {
       try {
         const res = await axios.get(
-          `${API_URL}/api/community/${communityId}/members`,
+          `${API_URL}${COMMUNITY}/${communityId}/members`,
           { withCredentials: true }
         );
         setMembers(res.data.members || []);
@@ -27,6 +27,19 @@ const MembersPopup = ({ isOpen, onClose, communityId }) => {
 
     fetchMembers();
   }, [isOpen, communityId]);
+
+  const handleRemoveMember = async (memberId) => {
+    try{
+      await axios.delete(
+        `${API_URL}${COMMUNITY}/${communityId}/members/${memberId}`,
+        { withCredentials: true }
+      );
+      setMembers(members.filter(member => member.id !== memberId));
+    } catch (err) {
+    console.error("Accept error:", err.response?.data || err.message);
+    alert(err.response?.data?.message || "Failed to accept request");
+  }
+  }
 
   if (!isOpen) return null;
 
@@ -55,18 +68,28 @@ const MembersPopup = ({ isOpen, onClose, communityId }) => {
             <p className="text-center text-gray-400">No members found</p>
           ) : (
             members.map((member) => (
-              <div
-                key={member.id}
-                className="flex justify-between items-center bg-[#111b33] p-3 rounded border border-blue-900"
-              >
-                <div>
-                  <p className="font-medium">{member.name}</p>
-                  <p className="text-xs text-gray-400">
-                    Joined on{" "}
-                    {new Date(member.joined_at).toLocaleDateString()}
-                  </p>
-                </div>
-              </div>
+            <div
+  key={member.id}
+  className="flex justify-between items-center bg-[#111b33] p-3 rounded border border-blue-900"
+>
+  {/* Left content */}
+  <div>
+    <p className="font-medium">{member.name}</p>
+    <p className="text-xs text-gray-400">
+      Joined on{" "}
+      {new Date(member.joined_at).toLocaleDateString()}
+    </p>
+  </div>
+
+  {/* Right button */}
+  <button
+    onClick={()=> handleRemoveMember(member.id)}
+    className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-bl-md"
+  >
+    Remove
+  </button>
+</div>
+
             ))
           )}
         </div>
