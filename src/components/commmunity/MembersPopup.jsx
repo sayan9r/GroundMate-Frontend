@@ -8,7 +8,7 @@ const MembersPopup = ({ isOpen, onClose, communityId }) => {
 
   useEffect(() => {
     if (!isOpen || !communityId) return;
-    console.log("Loading members for community:", communityId);
+    //console.log("Loading members for community:", communityId);
 
     const fetchMembers = async () => {
       try {

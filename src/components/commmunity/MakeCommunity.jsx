@@ -36,7 +36,7 @@ function MakeCommunity() {
  };
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center  items-center p-6">
-      {error && <p className='text-red-500 mb-4'> {error} </p>}
+      
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-xl p-8 w-full max-w-lg"
