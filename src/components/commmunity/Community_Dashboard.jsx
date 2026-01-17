@@ -274,76 +274,7 @@ function Community_Dashboard() {
 
       <br />
 
-            {/* ================= Your REQUESTS ================= */}
-
-      {requests.length === 0 ? (
-        <p className="text-gray-400">No pending requests</p>
-      ) : (
-        <div className="bg-[#070d1a] border border-blue-900 rounded-2xl p-6 shadow-xl">
-          <h1 className="text-xl font-semibold text-white mb-4">
-            Your Requests
-          </h1>
-          <div className="space-y-3">
-            {requests.map((req, index) => (
-              <div
-                key={req.id}
-                className={`
-    flex flex-col sm:flex-row
-    sm:items-center sm:justify-between
-    gap-4
-    w-full sm:w-[95%] mx-auto
-    px-4 sm:px-5 py-4
-    rounded-xl
-    border border-blue-700
-    ${
-      index % 3 === 0
-        ? "bg-[#0e1629]"
-        : index % 3 === 1
-        ? "bg-[#111b33]"
-        : "bg-[#0c1426]"
-    }
-  `}
-              >
-                {/* LEFT SIDE */}
-                <div className="flex items-start sm:items-center gap-4">
-                  <div className="w-9 h-9 shrink-0 rounded-full bg-blue-700 flex items-center justify-center text-sm font-bold">
-                    {req.name?.charAt(0)?.toUpperCase()}
-                  </div>
-
-                  <div>
-                    <p className="font-medium text-white text-sm sm:text-base">
-                      {req.name}
-                    </p>
-                    <p className="text-xs sm:text-sm text-gray-400">
-                      wants to join{" "}
-                      <span className="text-blue-400">
-                        {req.community_name}
-                      </span>
-                    </p>
-                  </div>
-                </div>
-
-                {/* RIGHT SIDE ACTIONS */}
-                <div className="flex gap-3 justify-end sm:justify-start">
-                  <button
-                    onClick={() => handleAccept(req)}
-                    className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded-full text-sm"
-                  >
-                    Accept
-                  </button>
-
-                  <button
-                    onClick={() => handleReject(req)}
-                    className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-full text-sm"
-                  >
-                    Reject
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+          
 
       <MembersPopup
         isOpen={showMembersPopup}

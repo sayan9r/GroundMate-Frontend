@@ -24,6 +24,7 @@ import MakeCommunity from './components/commmunity/MakeCommunity.jsx';
 import Community_Dashboard from './components/commmunity/Community_Dashboard.jsx';
 import JoinCommunity from './components/commmunity/JoinCommunity.jsx';
 import MembersPopup from './components/commmunity/MembersPopup.jsx';
+import Seetings from './components/Settings/Settings.jsx';
 
 
 axios.defaults.withCredentials = true;
@@ -73,6 +74,7 @@ function App() {
          <Route path="/contact" element={<ContactUs/>} />
          <Route path="/signup" element={user ? <Navigate to="/" /> : <SignUp setUser={setUser}/>}/>
          <Route path="/login" element={user ? <Navigate to="/" /> : <Login setUser={setUser}/>}/> 
+         <Route path="/seetings" element={user ? <Seetings user={user}/> : <Login setUser={setUser}/>}/> 
          <Route path="/dashboard" element={user ? <Dashboard user={user} setUser={setUser}/> : <Login setUser={setUser}/> } />
          <Route path="/dashboard/creategame" element={user ? <CreateGame user={user}/> : <Login setUser={setUser}/>} />
          <Route path="/dashboard/allcreategame" element={<AllCreateGame/>} />
