@@ -109,8 +109,15 @@ function Community_Dashboard() {
             Join Community
           </button>
 
-          <button className="px-4 py-2 text-sm bg-gray-700 hover:bg-gray-600 rounded-full">
+          <button
+          onClick={()=> navigate("/community/global-blogs")} className="px-4 py-2 text-sm bg-gray-700 hover:bg-gray-600 rounded-full">
             Global Community
+          </button>
+          <button
+            onClick={() => navigate("/community/joined-community")}
+            className="px-4 py-2 text-sm bg-amber-700 hover:bg-amber-950 rounded-full"
+          >
+            Joined Community
           </button>
         </div>
 
@@ -273,6 +280,8 @@ function Community_Dashboard() {
       )}
 
       <br />
+
+      <div className="mx-auto mb-10 h-[1px] w-3/4 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
 
           
 
