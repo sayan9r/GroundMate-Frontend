@@ -30,6 +30,7 @@ export const AUTH_UPDATE_REQUESTS = `${AUTH_USER}/update-requests`;
 export const NEWCOMMUNITY = `${COMMUNITY}/newcommunity`;
 export const CHECKCOMMUNITY = `${COMMUNITY}/checkcommunity`;
 export const JOINCOMMUNITY = `${COMMUNITY}/join-community`;
+export const JOINEDCOMMUNITIES = `${COMMUNITY}/joined-communities`;
 export const REQUESTJOIN = `${COMMUNITY}/request-join`;
 export const ALLREQUESTS = `${COMMUNITY}/all-requests`;
 export const ACCEPTREQUEST = `${COMMUNITY}/accept-request`;

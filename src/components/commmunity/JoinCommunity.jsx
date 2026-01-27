@@ -55,6 +55,7 @@ function JoinCommunity() {
 
   return (
     <div className="min-h-screen bg-black p-6 text-white">
+       <div className="mx-auto mb-10 h-[1px] w-3/4 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
       
       {/* Header */}
       <div className="mb-6">

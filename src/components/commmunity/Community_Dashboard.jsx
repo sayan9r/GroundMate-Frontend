@@ -91,43 +91,45 @@ function Community_Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b  from-black via-blue-950 to-gray-950  shadow-md p-6 text-white">
-      {/* ================= TOP BAR ================= */}
-      <div className="flex justify-between items-center mb-10">
-        {/* Action Buttons */}
-        <div className="flex gap-5">
-          <button
-            onClick={() => navigate("/community/makecommunity")}
-            className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 rounded-full"
-          >
-            + Create Community
-          </button>
+     {/* ================= TOP BAR ================= */}
+<div className="mb-6">
+  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+    
+    {/* Action Buttons */}
+    <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-5">
+      
+      <button
+        onClick={() => navigate("/community/makecommunity")}
+        className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 rounded-full w-full"
+      >
+        + Create
+      </button>
 
-          <button
-            onClick={() => navigate("/community/join-community")}
-            className="px-4 py-2 text-sm bg-green-600 hover:bg-green-700 rounded-full"
-          >
-            Join Community
-          </button>
+      <button
+        onClick={() => navigate("/community/join-community")}
+        className="px-4 py-2 text-sm bg-green-600 hover:bg-green-700 rounded-full w-full"
+      >
+        Join
+      </button>
+      <button
+        onClick={() => navigate("/community/joined-community")}
+        className="px-4 py-2 text-sm bg-amber-700 hover:bg-amber-800 rounded-full w-full col-span-2 sm:col-auto"
+      >
+        Joined Community
+      </button>
 
-          <button
-          onClick={()=> navigate("/community/global-blogs")} className="px-4 py-2 text-sm bg-gray-700 hover:bg-gray-600 rounded-full">
-            Global Community
-          </button>
-          <button
-            onClick={() => navigate("/community/joined-community")}
-            className="px-4 py-2 text-sm bg-amber-700 hover:bg-amber-950 rounded-full"
-          >
-            Joined Community
-          </button>
-        </div>
 
-        {/* Dashboard Image */}
-        {/* <img
-          src="/community_dashboard_image.png"
-          alt="Community Dashboard"
-          className="w-18 h-18 rounded-full border-2 border-blue-600 mr-40"
-        /> */}
-      </div>
+      <button
+        onClick={() => navigate("/community/global-blogs")}
+        className="px-4 py-2 text-sm bg-gray-700 hover:bg-gray-600 rounded-full w-full col-span-2 sm:col-auto"
+      >
+        Global Community
+      </button>
+
+      
+    </div>
+  </div>
+</div>
 
       {/* ================= QUICK STATS ================= */}
 
