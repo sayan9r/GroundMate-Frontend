@@ -50,7 +50,7 @@ function Dashboard({ user, setUser }) {
         >
           {/* Profile */}
           <img
-            src="groot.jpg"
+            src={user.profile_image ? `${API_URL}${user.profile_image}` : "/default_image.png"}
             alt="Profile"
             className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover
             border-2 border-blue-800 shadow-lg"

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Edit, Mail, Phone, User, Mars, Venus } from "lucide-react";
-import { API_URL, SETTINGS } from "../../api";
+import { API_URL, SETTINGS, UPDATEIMAGE } from "../../api";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +9,9 @@ export default function Settings({ user }) {
   const [mobile, setMobile] = useState(user.contact_no);
   const [gender, setGender] = useState(user.gender);
   const [email, setEmail] = useState(user.email);
+  const [profileImage, setProfileImage] = useState(user.profile_image);
+  const [imageFile, setImageFile] = useState(null);
+
   const navigate = useNavigate();
 
 const handleChange = async () => {
@@ -40,6 +43,35 @@ const handleChange = async () => {
 };
 
 
+const handleImageUpload = async () => {
+  if (!imageFile) return;
+
+  try {
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    const res = await axios.put(
+      `${API_URL}${UPDATEIMAGE}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    setProfileImage(res.data.imageUrl);
+    alert("Profile image updated ✅");
+  } catch (err) {
+    console.error(err);
+    alert("Image upload failed ❌");
+  }
+};
+
+
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-b  from-black via-blue-950 to-gray-950 border-2  border-t-blue-600 shadow-md rounded-xl p-6  flex items-center justify-center p-6">
       <div className="w-full max-w-4xl bg-[#0b1224] rounded-2xl shadow-xl p-6 flex flex-col md:flex-row gap-8">
@@ -47,23 +79,43 @@ const handleChange = async () => {
 {/* Left Profile Image */}
 <div className="relative flex-shrink-0 group mx-auto md:mx-0">
   <img
-    src=""
-    alt="Profile"
-    className="w-35 h-35 object-cover rounded-4xl border border-blue-700"
-  />
+  src={
+    profileImage
+      ? `${API_URL}${profileImage}`
+      : "/default-avatar.png"
+  }
+  alt="Profile"
+  className="w-35 h-35 object-cover rounded-4xl border border-blue-700"
+/>
+
+  {imageFile && (
+  <button
+    onClick={handleImageUpload}
+    className="mt-2 px-4 py-1 bg-blue-600 rounded"
+  >
+    Save Image
+  </button>
+)}
+
 
   {/* Hover / Mobile Edit Overlay */}
   <label
-    className="
-      absolute inset-0 flex items-center justify-center
-      bg-black/60 rounded-2xl
-      opacity-100 md:opacity-0
-      md:group-hover:opacity-100
-      transition cursor-pointer
-    "
+    // className="
+    //   absolute inset-0 flex items-center justify-center
+    //   bg-black/60 rounded-2xl
+    //   opacity-100 md:opacity-0
+    //   md:group-hover:opacity-100
+    //   transition cursor-pointer
+    // "
   >
     <Edit size={26} className="text-blue-400" />
-    <input type="file" className="hidden" accept="image/*" />
+   <input
+  type="file"
+  className="hidden"
+  accept="image/*"
+  onChange={(e) => setImageFile(e.target.files[0])}
+/>
+
   </label>
 </div>
 

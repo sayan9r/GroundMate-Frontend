@@ -14,6 +14,7 @@ export const AUTH_REGISTER = `${AUTH_BASE}/register`;
 // User Endpoints
 export const AUTH_CONTACTUS = `${AUTH_USER}/contactus`;
 export const SETTINGS = `${AUTH_USER}/updateuser`;
+export const UPDATEIMAGE = `${AUTH_USER}/profile/image`;
 export const AUTH_CREATEGAME = `${AUTH_USER}/creategame`;
 export const AUTH_JOINGAME = `${AUTH_USER}/joingame`;
 export const AUTH_ALLCREATEGAME = `${AUTH_USER}/allcreategame`;
