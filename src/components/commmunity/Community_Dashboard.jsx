@@ -56,12 +56,12 @@ function Community_Dashboard() {
         {
           requestId: req.request_id,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       // Remove request from UI
       setRequests((prev) =>
-        prev.filter((r) => r.request_id !== req.request_id)
+        prev.filter((r) => r.request_id !== req.request_id),
       );
 
       alert("✅ Request accepted");
@@ -76,11 +76,11 @@ function Community_Dashboard() {
       await axios.post(
         `${API_URL}${REJECTREQUEST}`,
         { requestId: req.request_id },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       setRequests((prev) =>
-        prev.filter((r) => r.request_id !== req.request_id)
+        prev.filter((r) => r.request_id !== req.request_id),
       );
 
       alert("❌ Request rejected");
@@ -91,45 +91,40 @@ function Community_Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b  from-black via-blue-950 to-gray-950  shadow-md p-6 text-white">
-     {/* ================= TOP BAR ================= */}
-<div className="mb-6">
-  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-    
-    {/* Action Buttons */}
-    <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-5">
-      
-      <button
-        onClick={() => navigate("/community/makecommunity")}
-        className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 rounded-full w-full"
-      >
-        + Create
-      </button>
+      {/* ================= TOP BAR ================= */}
+      <div className="mb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+          {/* Action Buttons */}
+          <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-5">
+            <button
+              onClick={() => navigate("/community/makecommunity")}
+              className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 rounded-full w-full"
+            >
+              + Create
+            </button>
 
-      <button
-        onClick={() => navigate("/community/join-community")}
-        className="px-4 py-2 text-sm bg-green-600 hover:bg-green-700 rounded-full w-full"
-      >
-        Join
-      </button>
-      <button
-        onClick={() => navigate("/community/joined-community")}
-        className="px-4 py-2 text-sm bg-amber-700 hover:bg-amber-800 rounded-full w-full col-span-2 sm:col-auto"
-      >
-        Joined Community
-      </button>
+            <button
+              onClick={() => navigate("/community/join-community")}
+              className="px-4 py-2 text-sm bg-green-600 hover:bg-green-700 rounded-full w-full"
+            >
+              Join
+            </button>
+            <button
+              onClick={() => navigate("/community/joined-community")}
+              className="px-4 py-2 text-sm bg-amber-700 hover:bg-amber-800 rounded-full w-full col-span-2 sm:col-auto"
+            >
+              Joined Community
+            </button>
 
-
-      <button
-        onClick={() => navigate("/community/global-blogs")}
-        className="px-4 py-2 text-sm bg-gray-700 hover:bg-gray-600 rounded-full w-full col-span-2 sm:col-auto"
-      >
-        Global Community
-      </button>
-
-      
-    </div>
-  </div>
-</div>
+            <button
+              onClick={() => navigate("/community/global-blogs")}
+              className="px-4 py-2 text-sm bg-gray-700 hover:bg-gray-600 rounded-full w-full col-span-2 sm:col-auto"
+            >
+              Global Community
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* ================= QUICK STATS ================= */}
 
@@ -185,7 +180,7 @@ function Community_Dashboard() {
             </div>
 
             {/* RIGHT SECTION */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               <p
                 className="text-sm text-gray-300 cursor-pointer hover:text-blue-500"
                 onClick={() => {
@@ -196,15 +191,28 @@ function Community_Dashboard() {
                 👥 {community.community_length || 0}
               </p>
 
-              <button
-                onClick={() => {
-                  setShowAddMemberPopup(true);
-                  setSelectedCommunityId(community.id);
-                }}
-                className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition"
-              >
-                + Add
-              </button>
+              {/* BUTTON COLUMN */}
+              <div className="flex flex-col gap-2">
+                <button
+                  onClick={() => {
+                    setShowAddMemberPopup(true);
+                    setSelectedCommunityId(community.id);
+                  }}
+                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition"
+                >
+                  + Add
+                </button>
+
+                <button
+                  onClick={() => {
+                    // navigate to post page or open post modal
+                    navigate(`/community/${community.id}/post`);
+                  }}
+                  className="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded-lg transition"
+                >
+                  📝 Post
+                </button>
+              </div>
             </div>
           </div>
         ))}
@@ -235,8 +243,8 @@ function Community_Dashboard() {
       index % 3 === 0
         ? "bg-[#0e1629]"
         : index % 3 === 1
-        ? "bg-[#111b33]"
-        : "bg-[#0c1426]"
+          ? "bg-[#111b33]"
+          : "bg-[#0c1426]"
     }
   `}
               >
@@ -285,8 +293,6 @@ function Community_Dashboard() {
 
       <div className="mx-auto mb-10 h-[1px] w-3/4 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
 
-          
-
       <MembersPopup
         isOpen={showMembersPopup}
         communityId={selectedCommunityId}
@@ -304,8 +310,6 @@ function Community_Dashboard() {
           }}
         />
       )}
-
-
     </div>
   );
 }
