@@ -120,7 +120,7 @@ function Community_Dashboard() {
               onClick={() => navigate("/community/global-blogs")}
               className="px-4 py-2 text-sm bg-gray-700 hover:bg-gray-600 rounded-full w-full col-span-2 sm:col-auto"
             >
-              Global Community
+             Daily Blog
             </button>
           </div>
         </div>

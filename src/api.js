@@ -36,3 +36,4 @@ export const REQUESTJOIN = `${COMMUNITY}/request-join`;
 export const ALLREQUESTS = `${COMMUNITY}/all-requests`;
 export const ACCEPTREQUEST = `${COMMUNITY}/accept-request`;
 export const REJECTREQUEST = `${COMMUNITY}/reject-request`;
+export const GLOBALCOMMUNITIES = `${COMMUNITY}/allposts`;

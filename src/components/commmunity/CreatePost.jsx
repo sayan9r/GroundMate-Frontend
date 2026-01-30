@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../../api";
+import { API_URL, COMMUNITY } from "../../api";
+
 
 function CreatePost() {
   const { communityId } = useParams();
@@ -21,13 +22,14 @@ function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+                //console.log(communityId);
     try {
       await axios.post(
-        `${API_URL}/community/${communityId}/post`,
+        `${API_URL}${COMMUNITY}/${communityId}/post`,
         formData,
         { withCredentials: true }
       );
+      
 
       navigate(-1); // go back to community dashboard
     } catch (err) {
