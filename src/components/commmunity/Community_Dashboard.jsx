@@ -157,7 +157,11 @@ function Community_Dashboard() {
         {communities.map((community) => (
           <div
             key={community.id}
-            className="flex justify-between items-center bg-[#0b1220] border border-blue-800 rounded-xl p-5 shadow-lg"
+            onClick={() => {
+            // navigate to post page or open post modal
+            navigate(`/community/${community.id}`);
+            }}
+            className="flex justify-between items-center bg-[#0b1220] border border-blue-800 rounded-xl hover:bg-gray-900 p-5 shadow-lg"
           >
             {/* LEFT SECTION */}
             <div className="flex items-center gap-4">

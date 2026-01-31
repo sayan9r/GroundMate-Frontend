@@ -34,7 +34,7 @@ function GlobalCommunity() {
   }
 
   return (
-    <div className="min-h-screen bg-[#050a18] px-4 py-10">
+    <div className="min-h-screen w-full bg-gradient-to-b  from-black via-blue-950 to-gray-950 border-2  border-t-blue-600 shadow-md  px-4 py-10">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <h1 className="text-2xl font-semibold text-white mb-8">
@@ -50,41 +50,52 @@ function GlobalCommunity() {
           ) : (
             posts.map((post) => (
               <div
-                key={post.id}
-                className="bg-[#0b1220] border border-blue-900 rounded-xl p-6 shadow-md"
-              >
-                {/* Title */}
-                <h2 className="text-lg font-semibold text-white mb-2">
-                  {post.title}
-                </h2>
+  key={post.id}
+  className="bg-blue-100 border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 shadow-md"
+>
+  {/* ROW 1: Community name (left) + Date (right) */}
+  <div className="flex justify-between items-center mb-3">
+    <h1 className="text-xl font-bold text-blue-800">
+      {post.community_name}
+    </h1>
 
-                {/* Content */}
-                <p className="text-gray-300 leading-relaxed mb-4">
-                  {post.description}
-                </p>
+    <div className="flex items-center gap-1 text-xs text-black">
+      <CalendarDays size={14} />
+      <span>
+        {new Date(post.created_time).toLocaleDateString()}
+      </span>
+    </div>
+  </div>
 
-                {/* Footer */}
-                <div className="flex justify-between items-center text-sm text-gray-400">
-                  {/* Author */}
-                  <span>
-                    ✍️ ~ {post.name}
-                  </span>
-                 <div className="flex items-center gap-1 text-xs text-gray-400">
-                  <CalendarDays size={14} /> {new Date(post.created_time).toLocaleDateString()}{" "}
-                 </div>
-{/* Date & Time */}
-<div className="flex items-center gap-1 text-xs text-gray-400">
-  <Clock size={14} />
-  <span>
-    {new Date(post.created_time).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    })}
-  </span>
+  {/* Divider */}
+  <hr className="border-blue-900/60 mb-4" />
+
+  {/* ROW 2: Title */}
+  <h2 className="text-lg font-semibold text-black mb-2">
+    {post.title}
+  </h2>
+
+  {/* Description */}
+  <p className="text-gray-900 leading-relaxed mb-4">
+    {post.description}
+  </p>
+
+  {/* Footer */}
+  <div className="flex justify-between items-center text-sm text-gray-700">
+    <span>✍️ ~ {post.name}</span>
+
+    <div className="flex items-center gap-1 text-xs text-gray-400">
+      <Clock size={14} />
+      <span>
+        {new Date(post.created_time).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      </span>
+    </div>
+  </div>
 </div>
 
-                </div>
-              </div>
             ))
           )}
         </div>

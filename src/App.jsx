@@ -28,6 +28,7 @@ import Seetings from './components/Settings/Settings.jsx';
 import GlobalCommunity from './components/commmunity/GlobalCommunity.jsx';
 import JoinedCommunity from './components/commmunity/JoinedCommunity.jsx';
 import CreatePost from './components/commmunity/CreatePost.jsx';
+import CommunityProfile from './components/commmunity/CommunityProfile.jsx';
 
 
 axios.defaults.withCredentials = true;
@@ -91,10 +92,12 @@ function App() {
          <Route path="/community/makecommunity" element={user ? <MakeCommunity /> : <Login setUser={setUser}/>} />
          <Route path="/community/communitys-dashboard" element={user ? <Community_Dashboard /> : <Login setUser={setUser}/>} />
          <Route path="/community/join-community" element={user ? <JoinCommunity /> : <Login setUser={setUser}/>} />
-          <Route path="/community/joined-community" element={user ? <JoinedCommunity /> : <Login setUser={setUser}/>} />
+         <Route path="/community/joined-community" element={user ? <JoinedCommunity /> : <Login setUser={setUser}/>} />
          <Route path="/community/all-members" element={user ? <MembersPopup /> : <Login setUser={setUser}/>} />
          <Route path="/community/global-blogs" element={user ? <GlobalCommunity /> : <Login setUser={setUser}/>} />
          <Route path="/community/:communityId/post" element={user ? <CreatePost /> : <Login setUser={setUser}/>} />
+         <Route path="/community/:communityId" element={user ? <CommunityProfile /> : <Login setUser={setUser}/>} />
+
 
          
 
