@@ -29,6 +29,7 @@ import GlobalCommunity from './components/commmunity/GlobalCommunity.jsx';
 import JoinedCommunity from './components/commmunity/JoinedCommunity.jsx';
 import CreatePost from './components/commmunity/CreatePost.jsx';
 import CommunityProfile from './components/commmunity/CommunityProfile.jsx';
+import EditPost from './components/commmunity/EditPost.jsx';
 
 
 axios.defaults.withCredentials = true;
@@ -97,6 +98,8 @@ function App() {
          <Route path="/community/global-blogs" element={user ? <GlobalCommunity /> : <Login setUser={setUser}/>} />
          <Route path="/community/:communityId/post" element={user ? <CreatePost /> : <Login setUser={setUser}/>} />
          <Route path="/community/:communityId" element={user ? <CommunityProfile /> : <Login setUser={setUser}/>} />
+         <Route path="/community/:communityId/edit/:postId" element={user ? <EditPost /> : <Login setUser={setUser}/>}/>
+
 
 
          

@@ -27,6 +27,7 @@ function CommunityProfile() {
           setCommunity(res.data.posts[0]); // community info
           setPosts(res.data.posts);      // all posts
         }
+        console.log(res.data.posts);
       } catch (error) {
         console.error("Error fetching community:", error);
       } finally {
@@ -92,12 +93,12 @@ function CommunityProfile() {
     Community Posts
   </h2>
 
-  {posts.map((post, index) => {
+  {posts.map((post, id) => {
     const createdAt = new Date(post.created_time);
 
     return (
       <div
-        key={index}
+        key={id}
         className="bg-[#0b1220] border border-blue-900 rounded-xl p-6"
       >
         {/* TITLE + EDIT BUTTON */}
