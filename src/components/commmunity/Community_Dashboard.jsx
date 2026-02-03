@@ -120,7 +120,7 @@ function Community_Dashboard() {
               onClick={() => navigate("/community/global-blogs")}
               className="px-4 py-2 text-sm bg-gray-700 hover:bg-gray-600 rounded-full w-full col-span-2 sm:col-auto"
             >
-             Daily Blog
+              Daily Blog
             </button>
           </div>
         </div>
@@ -157,22 +157,29 @@ function Community_Dashboard() {
         {communities.map((community) => (
           <div
             key={community.id}
-            onClick={() => {
-            // navigate to post page or open post modal
-            navigate(`/community/${community.id}`);
-            }}
             className="flex justify-between items-center bg-[#0b1220] border border-blue-800 rounded-xl hover:bg-gray-900 p-5 shadow-lg"
           >
             {/* LEFT SECTION */}
-            <div className="flex items-center gap-4">
+            <div
+              onClick={() => {
+                // navigate to post page or open post modal
+                navigate(`/community/${community.id}`);
+              }}
+              className="flex items-center gap-4"
+            >
               <img
                 src={community.image || "/community.png"}
                 alt={community.name}
                 className="w-16 h-16 rounded-lg border border-blue-700 object-cover"
               />
 
-              <div>
-                <h2 className="text-lg font-semibold text-white leading-tight">
+              <div
+                onClick={() => {
+                  // navigate to post page or open post modal
+                  navigate(`/community/${community.id}`);
+                }}
+              >
+                <h2 className="text-lg font-semibold text-white leading-tight hover:text-blue-400">
                   {community.name}
                 </h2>
 
