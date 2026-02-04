@@ -10,6 +10,7 @@ export const COMMUNITY = "/api/community";
 export const AUTH_LOGIN = `${AUTH_BASE}/login`;
 export const AUTH_LOGOUT = `${AUTH_BASE}/logout`;
 export const AUTH_REGISTER = `${AUTH_BASE}/register`;
+export const AUTH_GOOGLE = `${AUTH_BASE}/google`;
 
 // User Endpoints
 export const AUTH_CONTACTUS = `${AUTH_USER}/contactus`;
