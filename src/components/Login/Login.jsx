@@ -81,14 +81,7 @@ function Login({setUser}) {
           <p className='text-blue-700'>Don't have an account ? </p> 
           <Link to="/signup" className='text-blue-700 pl-5 hover:text-red-600'>signup</Link>
         </div>
-        <button
-  onClick={() => {
-    window.location.href = `${API_URL}${AUTH_GOOGLE}`;
-  }}
-  className="w-full mt-4 bg-red-500 text-white py-2 rounded"
->
-  Login with Google
-</button>
+        
 
       </form>
     </div>

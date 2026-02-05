@@ -27,6 +27,7 @@ export const AUTH_STARTGAME = `${AUTH_USER}/startgame`;
 export const AUTH_GAME_REQUESTS = `${AUTH_USER}/game-requests`;
 export const AUTH_TOTAL_ACCEPTED = `${AUTH_USER}/total-accepted`;
 export const AUTH_UPDATE_REQUESTS = `${AUTH_USER}/update-requests`;
+export const GAMEDETAILS = `${AUTH_USER}/gamedetails`;
 
 // Community Endpoints
 export const NEWCOMMUNITY = `${COMMUNITY}/newcommunity`;
