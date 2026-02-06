@@ -50,7 +50,7 @@ function JoinedGame() {
               {g.game}
             </h3>
             <p className="text-sm text-gray-600">
-              <strong>Date:</strong> {new Date(g.gamedate).toLocaleDateString()}
+              <strong>Date:</strong> {new Date(g.gamedate).toLocaleDateString("en-GB")}
             </p>
             <p className="text-sm text-gray-600">
               <strong>Time:</strong> {g.starttime}

@@ -15,6 +15,7 @@ function Reports() {
       try {
         const res = await axios.get(`${API_URL}${AUTH_LASTCREATEGAME}`);
         setGames(res.data);
+        console.log(res.data);
         const res2 = await axios.get(`${API_URL}${GAMEDETAILS}`);
         setGameDetails(res2.data);
       } catch (err) {
@@ -66,7 +67,9 @@ function Reports() {
                 {games.teamlength}
               </p>
               <p>
-                <span className="text-gray-400">Date:</span> {games.gamedate}
+<span className="text-gray-400">Date:</span> 
+{new Date(games.gamedate).toLocaleDateString("en-GB")}
+
               </p>
               <p>
                 <span className="text-gray-400">Start Time:</span>{" "}

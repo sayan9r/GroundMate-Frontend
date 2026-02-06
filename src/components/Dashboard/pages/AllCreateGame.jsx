@@ -6,7 +6,7 @@ import { API_URL,AUTH_ALLCREATEGAME } from "../../../api";
 function AllCreateGame() {
   const [games, setGames] = useState([]);
   const [selectedGameId, setSelectedGameId] = useState(null); // 👈 Track which game popup to show
-
+  const [loading, setLoading] = useState(true);
   // Fetch all created games
   useEffect(() => {
     const fetchGame = async () => {
@@ -17,12 +17,16 @@ function AllCreateGame() {
         setGames(res.data);
       } catch (err) {
         console.error("Error fetching games:", err.response?.data || err.message);
+      }finally {
+        setLoading(false);
       }
     };
     fetchGame();
   }, []);
 
-  
+  if (loading) {
+    return <div className="h-[80vh] flex items-center justify-center text-white">Loading...</div>;
+  }
 
   return (
     <>
@@ -52,7 +56,7 @@ function AllCreateGame() {
                     </p>
                     <p className="text-sm text-gray-700 mb-1">
                       <span className="font-medium text-gray-800">Date:</span>{" "}
-                      {new Date(game.game_date || game.gamedate).toLocaleDateString()}
+                      {new Date(game.game_date || game.gamedate).toLocaleDateString("en-GB")}
                     </p>
                     <p className="text-sm text-gray-700 mb-1">
                       <span className="font-medium text-gray-800">Start Time:</span>{" "}
