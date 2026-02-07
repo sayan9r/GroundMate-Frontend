@@ -62,7 +62,7 @@ function GlobalCommunity() {
     <div className="flex items-center gap-1 text-xs text-black">
       <CalendarDays size={14} />
       <span>
-        {new Date(post.created_time).toLocaleDateString()}
+        {new Date(post.created_time).toLocaleDateString("en-GB")}
       </span>
     </div>
   </div>

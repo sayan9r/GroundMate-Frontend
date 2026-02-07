@@ -8,6 +8,7 @@ function Reports() {
   const [games, setGames] = useState([]);
   const [gamedetails, setGameDetails] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,10 +27,16 @@ function Reports() {
         } else {
           setError("Something went wrong. Please try again later.");
         }
+      }finally {
+        setLoading(false);
       }
     };
     fetchGame();
   }, []);
+
+    if (loading) {
+    return <div className="h-[80vh] flex items-center justify-center text-white">Loading Dashboard...</div>;
+  }
 
   return (
     <div className="min-h-screen px-6 py-2 text-white">
@@ -67,7 +74,7 @@ function Reports() {
                 {games.teamlength}
               </p>
               <p>
-<span className="text-gray-400">Date:</span> 
+<span className="text-gray-400">Date: </span> 
 {new Date(games.gamedate).toLocaleDateString("en-GB")}
 
               </p>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL, COMMUNITY } from "../../api";
-import { Clock, Calendar, Edit } from "lucide-react";
+import { Clock, Calendar, Edit , MapPin , MoreVertical, Settings, Users, Megaphone, PlusCircle } from "lucide-react";
 
 
 
@@ -50,42 +50,117 @@ function CommunityProfile() {
     <div className="min-h-screen bg-[#050a18] px-4 py-10 text-white">
       <div className="max-w-5xl mx-auto space-y-10">
 
-        {/* ================= ROW 1 ================= */}
-        <div className="bg-[#0b1220] border border-blue-900 rounded-xl p-6 shadow-md">
-          <div className="flex flex-col md:flex-row justify-between gap-8">
+       {/* ================= ROW 1 — NEW CLEAN LAYOUT ================= */}
+<div className="bg-[#0b1220] border border-blue-900 rounded-xl p-6 shadow-md">
 
-            {/* LEFT SECTION */}
-            <div className="flex-1">
-              <p className="text-gray-300 leading-relaxed text-sm whitespace-pre-line">
-                {community.description}
-              </p>
+  {/* TOP SECTION: PROFILE + INFO + ACTIONS */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
 
-              <p className="text-gray-400 mt-4 text-sm italic">
-                ~ {community.created_by} [Admin]
-              </p>
-            </div>
+    {/* LEFT — Profile + Basic Info */}
+    <div className="flex items-center gap-4">
+      <img
+        src="/community_default.png"
+        alt="Community Profile"
+        className="w-20 h-20 rounded-full object-cover border-2 border-blue-800 shadow-md"
+      />
 
-            {/* RIGHT SECTION */}
-            <div className="flex flex-col items-center text-center gap-3">
-              <img
-                src="/community_default.png"
-                alt="Community Profile"
-                className="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md"
-              />
+      <div>
+        <h2 className="text-lg font-semibold text-white hover:text-blue-400 transition">
+          {community.community_name || "Community"}
+        </h2>
 
-              <div className="text-sm text-gray-300">
-                <p>
-                  <span className="font-semibold text-white">
-                    {community.community_length}
-                  </span>{" "}
-                  Members
-                </p>
-                <p className="text-gray-400">📍 {community.city}</p>
-              </div>
-            </div>
+        <p className="text-gray-300 text-sm mt-1 hover:text-blue-400 transition">
+          <span className="font-semibold text-white ">
+            {community.community_length}
+          </span>{" "}
+          Members
+        </p>
+        
+       <p className="text-gray-400 flex items-center gap-2 text-sm hover:text-blue-400 transition">
+            <MapPin size={14} /> {community.city}
+       </p>
+      </div>
+    </div>
 
-          </div>
-        </div>
+    {/* CENTER — Description */}
+   <div className="md:col-span-2">
+  <div className="bg-[#050a18] p-4 rounded-lg border border-blue-900">
+    <p className="text-gray-300 leading-relaxed text-sm whitespace-pre-line">
+      {community.description}
+    </p>
+
+    <p className="text-gray-400 mt-2 text-sm italic text-right">
+      ~ {community.created_by} [Admin]
+    </p>
+  </div>
+</div>
+
+  </div>
+
+  {/* ACTION BUTTON BAR */}
+<div className="flex items-center justify-between mt-6 pt-4 border-t border-blue-900">
+
+  {/* LEFT SIDE BUTTONS */}
+  <div className="flex items-center gap-3">
+
+    {/* Create Tournament (same position as before) */}
+    <button
+      onClick={() => navigate(`/community/${communityId}/tournament`)}
+      className="flex items-center gap-2 px-5 py-2 text-sm bg-blue-600 hover:bg-blue-700 rounded-lg"
+    >
+      <PlusCircle size={16} /> Create Tournament
+    </button>
+
+    {/* New Post Button */}
+    <button
+      onClick={() => navigate(`/community/${communityId}/post`)}
+      className="flex items-center gap-2 px-5 py-2 text-sm bg-blue-500 hover:bg-blue-600 rounded-lg"
+    >
+      <PlusCircle size={16} /> Post
+    </button>
+
+  </div>
+
+  {/* RIGHT SIDE — THREE DOT MENU */}
+  <div className="relative group">
+
+    {/* Three dot button */}
+    <button className="p-2 rounded-full hover:bg-[#050a18] border border-blue-900">
+      <MoreVertical size={18} />
+    </button>
+
+    {/* Dropdown Menu */}
+    <div className="absolute right-0 mt-2 w-44 bg-[#0b1220] border border-blue-900 rounded-lg shadow-lg hidden group-hover:block">
+
+      <button
+        onClick={() => navigate(`/community/${communityId}/settings`)}
+        className="w-full text-left px-4 py-2 text-sm hover:bg-[#050a18] flex items-center gap-2"
+      >
+        <Settings size={14} /> Settings
+      </button>
+
+      <button
+        onClick={() => navigate(`/community/${communityId}/members`)}
+        className="w-full text-left px-4 py-2 text-sm hover:bg-[#050a18] flex items-center gap-2"
+      >
+        <Users size={14} /> View Members
+      </button>
+
+      <button
+        onClick={() => navigate(`/community/${communityId}/promotion`)}
+        className="w-full text-left px-4 py-2 text-sm hover:bg-[#050a18] flex items-center gap-2"
+      >
+        <Megaphone size={14} /> Promotion
+      </button>
+
+    </div>
+  </div>
+
+</div>
+
+
+</div>
+
 
         {/* ================= ROW 2 ================= */}
 <div className="space-y-6">
@@ -124,7 +199,7 @@ function CommunityProfile() {
         <div className="flex gap-6 text-gray-400 text-xs">
           <div className="flex items-center gap-1">
             <Calendar size={14} />
-            {createdAt.toLocaleDateString()}
+            {createdAt.toLocaleDateString("en-GB")}
           </div>
 
           <div className="flex items-center gap-1">

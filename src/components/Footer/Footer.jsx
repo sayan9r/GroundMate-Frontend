@@ -142,7 +142,7 @@ export default function Footer({
               </a>
 
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=100086481762078"
                 aria-label="GroundMate on Facebook"
                 className="p-2 rounded-md hover:bg-white/5 transition-colors"
               >
