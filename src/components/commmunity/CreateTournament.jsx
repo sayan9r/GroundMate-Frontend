@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { API_URL, COMMUNITY } from "../../api";   // adjust path if needed
+
 import {
   MapPin,
   Calendar,
@@ -21,25 +24,52 @@ function CreateTournament() {
   const [totalTeams, setTotalTeams] = useState("");
   const [teamSize, setTeamSize] = useState("");
   const [prize, setPrize] = useState("");
+  const [contact, setContact] = useState("");
   const [rules, setRules] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
-    const tournamentData = {
-      sport: sport === "Others" ? otherSport : sport,
-      location,
-      datetime,
-      totalTeams,
-      teamSize,
-      prize,
-      rules,
-      communityId,
-    };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    console.log("Tournament Data:", tournamentData);
-    alert("Tournament created successfully (mock)");
+  const tournamentData = {
+    sport: sport === "Others" ? otherSport : sport,
+    location,
+    contact,
+    date,
+    time,
+    totalTeams,
+    teamSize,
+    prize,
+    rules,
   };
+
+  try {
+    const res = await axios.post(
+      `${API_URL}${COMMUNITY}/${communityId}/create-tournament`,
+      tournamentData,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    alert("Tournament created successfully ✅");
+    console.log(res.data);
+
+    // Go back to community page after success
+    navigate(`/community/${communityId}`);
+
+  } catch (error) {
+    console.error(error);
+    alert(error.response?.data?.message || "Failed to create tournament ❌");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-[#050a18] px-4 py-10 text-white">
@@ -173,6 +203,21 @@ function CreateTournament() {
               required
             />
           </div>
+          {/* ================= CONTACT NUMBER ================= */}
+<div>
+  <label className="block text-sm text-gray-300 mb-1">
+    Contact Number
+  </label>
+  <input
+    type="tel"
+    placeholder="Enter contact number"
+    className="w-full bg-[#050a18] border border-blue-900 rounded-lg p-2 text-gray-200"
+    value={contact}
+    onChange={(e) => setContact(e.target.value)}
+    required
+  />
+</div>
+
 
           {/* RULES & CONDITIONS */}
           <div>
@@ -200,11 +245,17 @@ function CreateTournament() {
             </button>
 
             <button
-              type="submit"
-              className="px-5 py-2 text-sm bg-blue-600 hover:bg-blue-700 rounded-lg"
-            >
-              Create Tournament
-            </button>
+  type="submit"
+  disabled={loading}
+  className={`px-5 py-2 text-sm rounded-lg ${
+    loading
+      ? "bg-gray-600 cursor-not-allowed"
+      : "bg-blue-600 hover:bg-blue-700"
+  }`}
+>
+  {loading ? "Creating..." : "Create Tournament"}
+</button>
+
           </div>
         </form>
       </div>

@@ -39,3 +39,4 @@ export const ALLREQUESTS = `${COMMUNITY}/all-requests`;
 export const ACCEPTREQUEST = `${COMMUNITY}/accept-request`;
 export const REJECTREQUEST = `${COMMUNITY}/reject-request`;
 export const GLOBALCOMMUNITIES = `${COMMUNITY}/allposts`;
+export const ALLTOURNAMENTS = `${COMMUNITY}/alltournament`;

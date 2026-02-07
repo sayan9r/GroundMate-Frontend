@@ -31,6 +31,7 @@ import CreatePost from './components/commmunity/CreatePost.jsx';
 import CommunityProfile from './components/commmunity/CommunityProfile.jsx';
 import EditPost from './components/commmunity/EditPost.jsx';
 import CreateTournament from './components/commmunity/CreateTournament.jsx';
+import GlobalTournament from './components/commmunity/GlobalTournament.jsx';
 
 
 axios.defaults.withCredentials = true;
@@ -101,6 +102,7 @@ function App() {
          <Route path="/community/:communityId" element={user ? <CommunityProfile /> : <Login setUser={setUser}/>} />
          <Route path="/community/:communityId/edit/:postId" element={user ? <EditPost /> : <Login setUser={setUser}/>}/>
          <Route path="/community/:communityId/tournament" element={user ? <CreateTournament /> : <Login setUser={setUser}/> }/>
+         <Route path="/community/tournaments" element={user ? <GlobalTournament/> : <Login setUser={setUser}/> }/>
 
          
      </Routes>
