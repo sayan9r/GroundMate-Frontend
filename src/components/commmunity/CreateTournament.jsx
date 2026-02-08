@@ -194,9 +194,9 @@ function CreateTournament() {
             <label className="block text-sm text-gray-300 mb-1 flex items-center gap-1">
               <Trophy size={14} /> Winning Prize
             </label>
-            <input
-              type="text"
-              placeholder="e.g. ₹10,000 + Trophy"
+            <textarea
+              rows="4"
+              placeholder={`Enter rules line by line...\nExample:\n1. No cheating\n2. Team must arrive on time\n3. Fair play required`}
               className="w-full bg-[#050a18] border border-blue-900 rounded-lg p-2 text-gray-200"
               value={prize}
               onChange={(e) => setPrize(e.target.value)}
@@ -226,7 +226,8 @@ function CreateTournament() {
             </label>
             <textarea
               rows="4"
-              placeholder="Write tournament rules..."
+             // placeholder="Write tournament rules..."
+              placeholder={`Enter rules line by line...\nExample:\n1. No cheating\n2. Team must arrive on time\n3. Fair play required`}
               className="w-full bg-[#050a18] border border-blue-900 rounded-lg p-2 text-gray-200"
               value={rules}
               onChange={(e) => setRules(e.target.value)}

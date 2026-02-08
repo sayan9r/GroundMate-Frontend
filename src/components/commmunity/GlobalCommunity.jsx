@@ -16,7 +16,7 @@ function GlobalCommunity() {
   const [posts, setPosts] = useState([]);
   const [tournaments, setTournaments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("blog"); // toggle state
+  const [activeTab, setActiveTab] = useState("blog");
 
   useEffect(() => {
     fetchPosts();
@@ -65,15 +65,15 @@ function GlobalCommunity() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-black via-blue-950 to-gray-950 px-4 py-10">
-      {/* ======= MAIN CONTAINER (70% WIDTH) ======= */}
-      <div className="w-[70%] mx-auto">
+    <div className="min-h-screen w-full bg-gradient-to-b from-black via-blue-950 to-gray-950 px-3 sm:px-6 py-8">
+      {/* ======= RESPONSIVE MAIN CONTAINER ======= */}
+      <div className="w-[95%] sm:w-[85%] lg:w-[70%] mx-auto">
 
-        {/* ======= TOGGLE BAR (FIXED) ======= */}
-        <div className="max-w-md mx-auto mb-8 bg-[#0b1220] border border-blue-900 rounded-full p-1 flex shadow-md">
+        {/* ======= TOGGLE BAR ======= */}
+        <div className="max-w-md mx-auto mb-6 bg-[#0b1220] border border-blue-900 rounded-full p-1 flex shadow-md">
           <div
             onClick={() => handleTabChange("blog")}
-            className={`flex-1 text-center py-2 rounded-full font-medium cursor-pointer transition ${
+            className={`flex-1 text-center py-2 rounded-full font-medium cursor-pointer transition text-sm sm:text-base ${
               activeTab === "blog"
                 ? "bg-blue-600 text-white"
                 : "text-gray-300 hover:bg-[#050a18]"
@@ -84,7 +84,7 @@ function GlobalCommunity() {
 
           <div
             onClick={() => handleTabChange("tournament")}
-            className={`flex-1 text-center py-2 rounded-full font-medium cursor-pointer transition ${
+            className={`flex-1 text-center py-2 rounded-full font-medium cursor-pointer transition text-sm sm:text-base ${
               activeTab === "tournament"
                 ? "bg-blue-600 text-white"
                 : "text-gray-300 hover:bg-[#050a18]"
@@ -95,7 +95,7 @@ function GlobalCommunity() {
         </div>
 
         {/* TITLE */}
-        <h1 className="text-2xl font-semibold text-white mb-8">
+        <h1 className="text-xl sm:text-2xl font-semibold text-white mb-6 text-center sm:text-left">
           {activeTab === "blog"
             ? "🌍 Voices of the Community"
             : "🏆 All Tournaments"}
@@ -103,7 +103,7 @@ function GlobalCommunity() {
 
         {/* ========== BLOG SECTION ========== */}
         {activeTab === "blog" && (
-          <div className="space-y-6">
+          <div className="space-y-5">
             {posts.length === 0 ? (
               <p className="text-gray-400 text-center">
                 No posts available yet.
@@ -112,14 +112,14 @@ function GlobalCommunity() {
               posts.map((post) => (
                 <div
                   key={post.id}
-                  className="bg-blue-100 border border-gray-200 rounded-2xl shadow-md p-6"
+                  className="bg-blue-100 border border-gray-200 rounded-2xl shadow-md p-4 sm:p-6"
                 >
-                  <div className="flex justify-between items-center mb-3">
-                    <h1 className="text-xl font-bold text-blue-800">
+                  <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
+                    <h1 className="text-lg sm:text-xl font-bold text-blue-800">
                       {post.community_name}
                     </h1>
 
-                    <div className="flex items-center gap-1 text-xs text-black">
+                    <div className="flex items-center gap-1 text-xs sm:text-sm text-black">
                       <CalendarDays size={14} />
                       <span>
                         {new Date(post.created_time).toLocaleDateString(
@@ -129,17 +129,17 @@ function GlobalCommunity() {
                     </div>
                   </div>
 
-                  <hr className="border-blue-900/60 mb-4" />
+                  <hr className="border-blue-900/60 mb-3" />
 
-                  <h2 className="text-lg font-semibold text-black mb-2">
+                  <h2 className="text-base sm:text-lg font-semibold text-black mb-2">
                     {post.title}
                   </h2>
 
-                  <p className="text-gray-900 leading-relaxed mb-4">
+                  <p className="text-gray-900 leading-relaxed mb-4 text-sm sm:text-base">
                     {post.description}
                   </p>
 
-                  <div className="flex justify-between items-center text-sm text-gray-700">
+                  <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 text-sm text-gray-700">
                     <span>✍️ ~ {post.name}</span>
 
                     <div className="flex items-center gap-1 text-xs text-gray-400">
@@ -169,16 +169,16 @@ function GlobalCommunity() {
               tournaments.map((t, idx) => (
                 <div
                   key={idx}
-                  className="border border-blue-900 rounded-xl p-6 shadow-md hover:shadow-lg transition bg-[#050a18]"
+                  className="border border-blue-900 rounded-xl p-4 sm:p-6 shadow-md hover:shadow-lg transition bg-[#050a18]"
                 >
                   {/* HEADER */}
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
+                    <h2 className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
                       <Medal size={18} className="text-yellow-400" />
                       {t.sport}
                     </h2>
 
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs sm:text-sm text-gray-400">
                       Organized by —{" "}
                       <span className="text-blue-400 font-medium">
                         {t.community_name} Community
@@ -189,7 +189,7 @@ function GlobalCommunity() {
                   <hr className="border-blue-900/60 mb-4" />
 
                   {/* DETAILS GRID */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                     <p className="flex items-center gap-2 text-gray-300">
                       <MapPin size={14} className="text-blue-400" />
                       <span className="font-medium text-white">
@@ -236,28 +236,62 @@ function GlobalCommunity() {
                       {t.team_size}
                     </p>
 
-                    <p className="flex items-center gap-2 text-gray-300">
+                    {/* <p className="flex items-center gap-2 text-gray-300">
                       <Trophy size={14} className="text-yellow-400" />
                       <span className="font-medium text-white">Prize:</span>
                       {t.winning_prize}
-                    </p>
+                    </p> */}
+                    
                   </div>
 
                   {/* RULES BOX */}
-                  <div className="mt-4 bg-[#050a18] p-4 rounded-lg border border-blue-900">
-                    <p className="text-gray-300 text-sm flex items-start gap-2">
-                      <FileText
-                        size={14}
-                        className="mt-1 text-blue-400"
-                      />
-                      <span>
-                        <span className="font-semibold text-white">
-                          Rules & Conditions:
-                        </span>{" "}
-                        {t.rules}
-                      </span>
-                    </p>
-                  </div>
+                  
+{/* ===== NEW TWO-COLUMN PRIZE + RULES BOX ===== */}
+<div className="mt-4 bg-[#b8b2e8] p-3 sm:p-4 rounded-lg border border-blue-900">
+
+
+
+  {/* TWO COLUMN LAYOUT */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative ">
+
+    {/* LEFT COLUMN — PRIZE SECTION */}
+    <div>
+      <h3 className="text-black font-semibold mb-2 flex items-center gap-2">
+        <Trophy size={14} className="text-blue-950" />
+        Prize Details
+      </h3>
+
+      <ul className="list-disc list-inside text-neutral-800 text-sm space-y-2">
+        {t.winning_prize
+          .split("\n")
+          .map((prize, i) => (
+            <li key={i}>{prize}</li>
+          ))}
+      </ul>
+    </div>
+
+    {/* VERTICAL DIVIDER (NOT FULL HEIGHT) */}
+    
+
+    {/* RIGHT COLUMN — RULES SECTION */}
+    <div>
+      <h3 className="text-shadow-red-900 font-semibold mb-2 flex items-center gap-2">
+        <FileText size={14} className="text-blue-950" />
+        Rules & Conditions
+      </h3>
+
+      <ul className="list-disc list-inside text-neutral-800 text-sm space-y-2">
+        {t.rules.split("\n").map((rule, i) => (
+          <li key={i}>{rule}</li>
+        ))}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+            
                 </div>
               ))
             )}
