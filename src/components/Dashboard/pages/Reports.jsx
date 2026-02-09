@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { NavbarButton } from "../../ui/resizable-navbar";
 import { useNavigate } from "react-router-dom";
 import { API_URL, AUTH_LASTCREATEGAME, GAMEDETAILS } from "../../../api";
+import LoadingScreen from "../../../LoadingScreen.jsxLoadingScreen";
 
 function Reports() {
   const [games, setGames] = useState([]);
@@ -35,7 +36,7 @@ function Reports() {
   }, []);
 
     if (loading) {
-    return <div className="h-[80vh] flex items-center justify-center text-white">Loading Dashboard...</div>;
+    return <LoadingScreen/>;
   }
 
   return (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL,AUTH_MYJOINEDGAMES } from "../../../api";
+import LoadingScreen from "../../../LoadingScreen.jsxLoadingScreen";
 
 function JoinedGame() {
   const [games, setGames] = useState([]);
@@ -25,7 +26,8 @@ function JoinedGame() {
   }, []);
 
   if (loading) {
-    return <p className="text-center text-white mt-10">Loading your joined games...</p>;
+    return <LoadingScreen/>;
+   
   }
 
   if (games.length === 0) {

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { API_URL ,AUTH_CONTACTUS} from "../../api";
+import { API_URL, AUTH_CONTACTUS } from "../../api";
+import LoadingScreen from "../../LoadingScreen.jsxLoadingScreen";
 
 function ContactUs() {
   const [form, setForm] = useState({
@@ -10,6 +11,17 @@ function ContactUs() {
     email: "",
     message: "",
   });
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1200); // 1.2 seconds loader
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const [loading, setLoading] = useState(true); // <-- important
+  const [submitting, setSubmitting] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -18,30 +30,43 @@ function ContactUs() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-        try{
-            const res = await axios.post(`${API_URL}${AUTH_CONTACTUS}`,form,{ withCredentials: true });
-            navigate("/");
+    setSubmitting(true);
 
-        }catch(err){
-            console.error("error:", err.response?.data || err.message);
-           
-        }
+    try {
+      await axios.post(`${API_URL}${AUTH_CONTACTUS}`, form, {
+        withCredentials: true,
+      });
+
+      setTimeout(() => {
+        setSubmitting(false);
+        navigate("/");
+      }, 1200);
+    } catch (err) {
+      console.error("error:", err.response?.data || err.message);
+      setSubmitting(false);
+    }
   };
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b  from-black via-blue-950 to-gray-950 flex flex-col items-center justify-center p-6 ">
       <div className="max-w-5xl w-full bg-transparent rounded-4xl shadow-fuchsia-800 p-8 md:p-12 grid md:grid-cols-2 gap-10 border-2 border-l-fuchsia-600 border-t-fuchsia-600 ">
-        
         {/* Left section - Contact info */}
         <div className="space-y-6">
-          <h2 className="text-3xl font-bold text-green-700">Contact GroundMate</h2>
+          <h2 className="text-3xl font-bold text-green-700">
+            Contact GroundMate
+          </h2>
           <p className="text-gray-400">
-            Have questions, feedback, or partnership ideas? We’d love to hear from you!
+            Have questions, feedback, or partnership ideas? We’d love to hear
+            from you!
           </p>
 
           <div className="space-y-4 text-gray-400">
             <div className="flex items-center gap-3">
-              <Mail className="text-green-600" /> 
+              <Mail className="text-green-600" />
               <span>support@groundmate.in</span>
             </div>
             <div className="flex items-center gap-3">
@@ -67,10 +92,14 @@ function ContactUs() {
 
         {/* Right section - Contact form */}
         <form onSubmit={handleSubmit} className="space-y-5">
-          <h3 className="text-2xl font-semibold text-green-700 mb-2">Send us a message</h3>
+          <h3 className="text-2xl font-semibold text-green-700 mb-2">
+            Send us a message
+          </h3>
 
           <div>
-            <label className="block text-sm font-medium text-gray-400 mb-1">Name</label>
+            <label className="block text-sm font-medium text-gray-400 mb-1">
+              Name
+            </label>
             <input
               type="text"
               name="name"
@@ -82,7 +111,9 @@ function ContactUs() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-400 mb-1">Email</label>
+            <label className="block text-sm font-medium text-gray-400 mb-1">
+              Email
+            </label>
             <input
               type="email"
               name="email"
@@ -94,7 +125,9 @@ function ContactUs() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-400 mb-1">Message</label>
+            <label className="block text-sm font-medium text-gray-400 mb-1">
+              Message
+            </label>
             <textarea
               name="message"
               value={form.message}
@@ -107,10 +140,17 @@ function ContactUs() {
 
           <button
             type="submit"
+            disabled={submitting}
             className="flex items-center justify-center gap-2 bg-green-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-green-700 transition-all duration-200"
           >
-            <Send size={18} />
-            Send Message
+            {submitting ? (
+              "Sending..."
+            ) : (
+              <>
+                <Send size={18} />
+                Send Message
+              </>
+            )}
           </button>
         </form>
       </div>

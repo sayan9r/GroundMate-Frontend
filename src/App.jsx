@@ -83,6 +83,7 @@ function App() {
          <Route path="/login" element={user ? <Navigate to="/" /> : <Login setUser={setUser}/>}/> 
          <Route path="/seetings" element={user ? <Seetings user={user}/> : <Login setUser={setUser}/>}/> 
          <Route path="/dashboard" element={user ? <Dashboard user={user} setUser={setUser}/> : <Login setUser={setUser}/> } />
+         <Route path="/turf" element={<TurfGame />} />
          <Route path="/dashboard/creategame" element={user ? <CreateGame user={user}/> : <Login setUser={setUser}/>} />
          <Route path="/dashboard/allcreategame" element={<AllCreateGame/>} />
          <Route path="/dashboard/joingame" element={user ? <JoinGame/> : <Login setUser={setUser}/>}/>

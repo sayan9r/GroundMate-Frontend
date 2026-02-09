@@ -28,7 +28,7 @@ function Dashboard({ user, setUser }) {
     { label: "Create Game", to: "/dashboard/creategame", icon: <IconPlus className="h-5 w-5" /> },
     { label: "Join Game", to: "/dashboard/joingame", icon: <IconUserPlus className="h-5 w-5" /> },
     { label: "Community", to: "/community", icon: <IconUsersGroup className="h-5 w-5" /> },
-    { label: "Turf Game", to: "/dashboard/turfgame", icon: <IconBuildingStadium className="h-5 w-5" /> },
+    { label: "Turf Game", to: "/turf", icon: <IconBuildingStadium className="h-5 w-5" /> },
     { label: "Settings", to: "/seetings", icon: <IconSettings className="h-5 w-5" /> },
     { label: "Logout", icon: <IconArrowLeft className="h-5 w-5" />, onClick: handleLogout },
   ];

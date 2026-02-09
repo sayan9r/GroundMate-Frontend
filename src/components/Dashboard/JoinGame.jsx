@@ -3,9 +3,11 @@ import { useState,useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { API_URL,AUTH_JOINGAME,AUTH_TOTAL_ACCEPTED } from '../../api';
+import LoadingScreen from '../../LoadingScreen.jsxLoadingScreen';
 
 function JoinGame() {
      const [games,setGames] = useState([]);
+     const [loading, setLoading] = useState(true);
     // const [buttontext,setButtonText] = ("Join");
      const navigate = useNavigate();
     
@@ -20,10 +22,20 @@ function JoinGame() {
     
           }catch(err){
             console.error("Error fetching games:", err.response?.data || err.message);
+          }finally {
+            setLoading(false);
           }
         }
         fetchGame();
         },[]);
+
+          if (loading) {
+    return (
+      
+        <LoadingScreen/>
+      
+    );
+  }
   return (
      <>
     <div className="min-h-screen w-full bg-gradient-to-b  from-black via-blue-950 to-gray-950 border-2  border-t-blue-600 shadow-md rounded-xl p-6 flex flex-col gap-6 mr-5 ">

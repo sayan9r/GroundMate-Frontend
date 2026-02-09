@@ -2,11 +2,13 @@ import React, { useState , useEffect } from 'react'
 import axios from "axios";
 import { API_URL, JOINCOMMUNITY, JOINEDCOMMUNITIES } from "../../api";
 import { IconMapPin, IconUsersGroup } from "@tabler/icons-react";
+import { useNavigate } from 'react-router-dom';
 
 function JoinedCommunity() {
   const [communities, setCommunities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCommunities = async () => {
@@ -86,7 +88,7 @@ function JoinedCommunity() {
               </p>
 
              <button
-                onClick={() => handleJoinCommunity(community.id)}
+                onClick={() => navigate(`/community/${community.id}`)}
                 className="mt-3 px-4 py-1 text-sm bg-green-600 hover:bg-green-700 rounded-full">
                   view Community
              </button>

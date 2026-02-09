@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ViewDetailsPopup from "./ViewDetailsPopup"; // 👈 import popup
 import { API_URL,AUTH_ALLCREATEGAME } from "../../../api";
+import LoadingScreen from "../../../LoadingScreen.jsxLoadingScreen";
 
 function AllCreateGame() {
   const [games, setGames] = useState([]);
@@ -25,7 +26,7 @@ function AllCreateGame() {
   }, []);
 
   if (loading) {
-    return <div className="h-[80vh] flex items-center justify-center text-white">Loading...</div>;
+    return <LoadingScreen/> ;
   }
 
   return (
