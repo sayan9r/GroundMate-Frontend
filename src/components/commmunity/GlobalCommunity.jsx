@@ -11,6 +11,8 @@ import {
   FileText,
 } from "lucide-react";
 import { ALLTOURNAMENTS, API_URL, GLOBALCOMMUNITIES } from "../../api";
+import LoadingScreen from "../../LoadingScreen.jsxLoadingScreen";
+import { useNavigate } from "react-router-dom";
 
 function GlobalCommunity() {
   const [posts, setPosts] = useState([]);
@@ -18,6 +20,7 @@ function GlobalCommunity() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("blog");
 
+  const navigate = useNavigate();
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -28,6 +31,7 @@ function GlobalCommunity() {
         withCredentials: true,
       });
       setPosts(res.data.posts || []);
+      //console.log(res.data.posts);
     } catch (err) {
       console.error("Failed to fetch global posts", err);
     } finally {
@@ -58,9 +62,7 @@ function GlobalCommunity() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#050a18] flex items-center justify-center text-gray-300">
-        Loading...
-      </div>
+     <LoadingScreen/>
     );
   }
 
@@ -115,7 +117,8 @@ function GlobalCommunity() {
                   className="bg-blue-100 border border-gray-200 rounded-2xl shadow-md p-4 sm:p-6"
                 >
                   <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
-                    <h1 className="text-lg sm:text-xl font-bold text-blue-800">
+                    <h1 className="text-lg sm:text-xl font-bold text-blue-800 hover:text-black"
+                    onClick={() => navigate(`/community/${post.community_id}`)}>
                       {post.community_name}
                     </h1>
 
@@ -178,7 +181,8 @@ function GlobalCommunity() {
                       {t.sport}
                     </h2>
 
-                    <span className="text-xs sm:text-sm text-gray-400">
+                    <span className="text-xs sm:text-sm text-gray-400 hover:text-[#b8b2e8]"
+                    onClick={()=> {navigate(`/community/${t.community_id}`)}}>
                       Organized by —{" "}
                       <span className="text-blue-400 font-medium">
                         {t.community_name} Community

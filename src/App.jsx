@@ -100,7 +100,7 @@ function App() {
          <Route path="/community/all-members" element={user ? <MembersPopup /> : <Login setUser={setUser}/>} />
          <Route path="/community/global-blogs" element={user ? <GlobalCommunity /> : <Login setUser={setUser}/>} />
          <Route path="/community/:communityId/post" element={user ? <CreatePost /> : <Login setUser={setUser}/>} />
-         <Route path="/community/:communityId" element={user ? <CommunityProfile /> : <Login setUser={setUser}/>} />
+         <Route path="/community/:communityId" element={user ? <CommunityProfile user={user} setUser={setUser}/> : <Login setUser={setUser}/>} />
          <Route path="/community/:communityId/edit/:postId" element={user ? <EditPost /> : <Login setUser={setUser}/>}/>
          <Route path="/community/:communityId/tournament" element={user ? <CreateTournament /> : <Login setUser={setUser}/> }/>
          <Route path="/community/tournaments" element={user ? <GlobalTournament/> : <Login setUser={setUser}/> }/>

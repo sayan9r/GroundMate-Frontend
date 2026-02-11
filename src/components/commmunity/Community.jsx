@@ -3,6 +3,7 @@ import { IconUsersGroup, IconHourglassHigh } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL, CHECKCOMMUNITY } from "../../api"; // adjust path if needed
+import LoadingScreen from "../../LoadingScreen.jsxLoadingScreen";
 
 export default function Community() {
   const navigate = useNavigate();
@@ -33,9 +34,7 @@ export default function Community() {
 
   if (loading) {
     return (
-      <div className="h-[80vh] flex items-center justify-center text-white">
-        Checking community...
-      </div>
+      <LoadingScreen/>
     );
   }
 

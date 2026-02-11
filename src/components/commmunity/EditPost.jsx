@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL, COMMUNITY } from "../../api";
+import LoadingScreen from "../../LoadingScreen.jsxLoadingScreen";
 
 function EditPost() {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ function EditPost() {
   };
 
   if (loading) {
-    return <div className="text-white text-center mt-10">Loading...</div>;
+    return <LoadingScreen/>;
   }
 
   return (

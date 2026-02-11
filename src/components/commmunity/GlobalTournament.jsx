@@ -11,6 +11,7 @@ import {
   Medal,
 } from "lucide-react";
 import { ALLTOURNAMENTS, API_URL } from "../../api";
+import LoadingScreen from "../../LoadingScreen.jsxLoadingScreen";
 
 function GlobalTournament() {
   const [tournaments, setTournaments] = useState([]);
@@ -38,9 +39,7 @@ function GlobalTournament() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#050a18] flex items-center justify-center text-gray-300">
-        Loading tournaments...
-      </div>
+      <LoadingScreen/>
     );
   }
 

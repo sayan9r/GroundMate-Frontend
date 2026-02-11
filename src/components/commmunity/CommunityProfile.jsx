@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL, COMMUNITY } from "../../api";
-import { Clock, Calendar, Edit , MapPin , MoreVertical, Settings, Users, Megaphone, PlusCircle } from "lucide-react";
+import { Clock, Calendar, Edit , MapPin , MoreVertical, Settings, Users, Megaphone, PlusCircle , Trash2 } from "lucide-react";
+import LoadingScreen from "../../LoadingScreen.jsxLoadingScreen";
 
 
 
-function CommunityProfile() {
+function CommunityProfile({user,setUser}) {
   const navigate = useNavigate();
   const { communityId } = useParams();
 
   const [community, setCommunity] = useState(null);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isCreator, setIsCreator] = useState(true);
+  const [openPostMenu, setOpenPostMenu] = useState(null);
+
+
 
   useEffect(() => {
     const fetchCommunityDetails = async () => {
@@ -27,7 +32,13 @@ function CommunityProfile() {
           setCommunity(res.data.posts[0]); // community info
           setPosts(res.data.posts);      // all posts
         }
-        console.log(res.data.posts);
+        if(res.data.posts[0].creator_id !== user.id){
+          setIsCreator(false); 
+        }
+         //console.log(res.data.posts);
+         //console.log(res.data.posts[0].creator_id);
+         //console.log(user.id);
+        // console.log(user.name);
       } catch (error) {
         console.error("Error fetching community:", error);
       } finally {
@@ -37,9 +48,38 @@ function CommunityProfile() {
 
     fetchCommunityDetails();
   }, [communityId]);
+ 
+const handleDeletePost = async (postId,communityId) => {
+  if (!window.confirm("Are you sure you want to delete this post?")) return;
+
+  try {
+    await axios.delete(
+      `${API_URL}${COMMUNITY}/${communityId}/post/${postId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    setPosts(prev => prev.filter(p => p.id !== postId));
+    setOpenPostMenu(null);   // close menu after delete ✅
+
+  } catch (err) {
+    console.error(err);
+    alert(err.response?.data?.message || "Failed to delete post ❌");
+    // alert(
+    //   err.response?.status === 403
+    //     ? "Only community creator can delete posts"
+    //     : "Failed to delete post"
+    // );
+  }
+};
+
+
 
   if (loading) {
-    return <div className="text-white text-center mt-10">Loading...</div>;
+    return <LoadingScreen/>;
   }
 
   if (!community) {
@@ -97,66 +137,68 @@ function CommunityProfile() {
 
   </div>
 
-  {/* ACTION BUTTON BAR */}
-<div className="flex items-center justify-between mt-6 pt-4 border-t border-blue-900">
 
-  {/* LEFT SIDE BUTTONS */}
-  <div className="flex items-center gap-3">
+{isCreator && (
+  <div className="flex items-center justify-between mt-6 pt-4 border-t border-blue-900">
 
-    {/* Create Tournament (same position as before) */}
-    <button
-      onClick={() => navigate(`/community/${communityId}/tournament`)}
-      className="flex items-center gap-2 px-5 py-2 text-sm bg-blue-600 hover:bg-blue-700 rounded-lg"
-    >
-      <PlusCircle size={16} /> Create Tournament
-    </button>
+    {/* LEFT SIDE BUTTONS */}
+    <div className="flex items-center gap-3">
 
-    {/* New Post Button */}
-    <button
-      onClick={() => navigate(`/community/${communityId}/post`)}
-      className="flex items-center gap-2 px-5 py-2 text-sm bg-blue-500 hover:bg-blue-600 rounded-lg"
-    >
-      <PlusCircle size={16} /> Post
-    </button>
-
-  </div>
-
-  {/* RIGHT SIDE — THREE DOT MENU */}
-  <div className="relative group">
-
-    {/* Three dot button */}
-    <button className="p-2 rounded-full hover:bg-[#050a18] border border-blue-900">
-      <MoreVertical size={18} />
-    </button>
-
-    {/* Dropdown Menu */}
-    <div className="absolute right-0 mt-2 w-44 bg-[#0b1220] border border-blue-900 rounded-lg shadow-lg hidden group-hover:block">
-
+      {/* Create Tournament */}
       <button
-        onClick={() => navigate(`/community/${communityId}/settings`)}
-        className="w-full text-left px-4 py-2 text-sm hover:bg-[#050a18] flex items-center gap-2"
+        onClick={() => navigate(`/community/${communityId}/tournament`)}
+        className="flex items-center gap-2 px-5 py-2 text-sm bg-blue-600 hover:bg-blue-700 rounded-lg "
       >
-        <Settings size={14} /> Settings
+        <PlusCircle size={16} /> Create Tournament
       </button>
 
+      {/* New Post Button */}
       <button
-        onClick={() => navigate(`/community/${communityId}/members`)}
-        className="w-full text-left px-4 py-2 text-sm hover:bg-[#050a18] flex items-center gap-2"
+        onClick={() => navigate(`/community/${communityId}/post`)}
+        className="flex items-center gap-2 px-5 py-2 text-sm bg-blue-500 hover:bg-blue-600 rounded-lg"
       >
-        <Users size={14} /> View Members
-      </button>
-
-      <button
-        onClick={() => navigate(`/community/${communityId}/promotion`)}
-        className="w-full text-left px-4 py-2 text-sm hover:bg-[#050a18] flex items-center gap-2"
-      >
-        <Megaphone size={14} /> Promotion
+        <PlusCircle size={16} /> Post
       </button>
 
     </div>
-  </div>
 
-</div>
+    {/* RIGHT SIDE — THREE DOT MENU */}
+    <div className="relative group">
+
+      <button className="p-2 rounded-full hover:bg-[#050a18] border border-blue-900">
+        <MoreVertical size={18} />
+      </button>
+
+      <div className="absolute right-0 mt-2 w-44 bg-[#0b1220] border border-blue-900 rounded-lg shadow-lg hidden group-hover:block">
+
+        <button
+          onClick={() => navigate(`/community/${communityId}/settings`)}
+          className="w-full text-left px-4 py-2 text-sm hover:bg-[#050a18] flex items-center gap-2"
+        >
+          <Settings size={14} /> Settings
+        </button>
+
+        <button
+          onClick={() => navigate(`/community/${communityId}/members`)}
+          className="w-full text-left px-4 py-2 text-sm hover:bg-[#050a18] flex items-center gap-2"
+        >
+          <Users size={14} /> View Members
+        </button>
+
+        <button
+          onClick={() => navigate(`/community/${communityId}/promotion`)}
+          className="w-full text-left px-4 py-2 text-sm hover:bg-[#050a18] flex items-center gap-2"
+        >
+          <Megaphone size={14} /> Promotion
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+)}
+
+
 
 
 </div>
@@ -176,19 +218,51 @@ function CommunityProfile() {
         key={id}
         className="bg-[#0b1220] border border-blue-900 rounded-xl p-6"
       >
-        {/* TITLE + EDIT BUTTON */}
-        <div className="flex justify-between items-center mb-3">
-          <h3 className="text-lg font-semibold text-white">
-            {post.title}
-          </h3>
+       {/* TITLE + THREE DOT MENU */}
+<div className="flex justify-between items-center mb-3">
+  <h3 className="text-lg font-semibold text-white">
+    {post.title}
+  </h3>
 
-          <button
-            onClick={() => navigate(`/community/${communityId}/edit/${post.id}`)}
-            className="flex items-center gap-1 text-sm text-blue-400 hover:text-blue-300"
-          >
-            <Edit size={16} /> Edit
-          </button>
-        </div>
+  {isCreator && (
+<div className="relative">
+
+    {/* Three dot button */}
+    <button
+      onClick={() =>
+        setOpenPostMenu(openPostMenu === post.id ? null : post.id)
+      }
+      className="p-2 rounded-full hover:bg-[#050a18] border border-blue-900"
+    >
+      <MoreVertical size={18} />
+    </button>
+
+    {/* STABLE DROPDOWN MENU (won’t disappear) */}
+    {openPostMenu === post.id && (
+      <div className="absolute right-0 mt-2 w-40 bg-[#0b1220] border border-blue-900 rounded-lg shadow-lg z-10">
+
+        {/* Edit option */}
+        <button
+          onClick={() => navigate(`/community/${communityId}/edit/${post.id}`)}
+          className="w-full text-left px-4 py-2 text-sm flex items-center gap-2 hover:text-blue-600"
+        >
+          <Edit size={14} /> Edit
+        </button>
+
+        {/* Delete option */}
+        <button
+          onClick={() => handleDeletePost(post.id,communityId)}
+          className="w-full text-left px-4 py-2 text-sm  flex items-center gap-2 text-red-200 hover:text-red-500"
+        >
+          <Trash2 size={14} /> Delete
+        </button>
+
+      </div>
+    )}
+  </div>
+  )}
+</div>
+
 
         {/* BLOG CONTENT */}
         <p className="text-gray-400 text-sm mb-3">

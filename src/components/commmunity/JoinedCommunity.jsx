@@ -3,6 +3,7 @@ import axios from "axios";
 import { API_URL, JOINCOMMUNITY, JOINEDCOMMUNITIES } from "../../api";
 import { IconMapPin, IconUsersGroup } from "@tabler/icons-react";
 import { useNavigate } from 'react-router-dom';
+import LoadingScreen from '../../LoadingScreen.jsxLoadingScreen';
 
 function JoinedCommunity() {
   const [communities, setCommunities] = useState([]);
@@ -35,9 +36,7 @@ function JoinedCommunity() {
 
   if (loading) {
     return (
-      <div className="h-[80vh] flex items-center justify-center text-white">
-        Loading communities...
-      </div>
+      <LoadingScreen/>
     );
   }
       

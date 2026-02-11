@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, COMMUNITY } from "../../api";
+import LoadingScreen from "../../LoadingScreen.jsxLoadingScreen";
 
 const AddMembersPopup = ({ onClose,communityId }) => {
   const [users, setUsers] = useState([]);
@@ -24,6 +25,12 @@ const AddMembersPopup = ({ onClose,communityId }) => {
    const filteredUsers = users.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  if (loading) {
+    return (
+      <LoadingScreen/>
+    );
+  }
 
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
