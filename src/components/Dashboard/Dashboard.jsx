@@ -12,11 +12,44 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Reports from "./pages/Reports";
-import { API_URL, AUTH_LOGOUT } from '../../api';
+import { API_URL, AUTH_LOGOUT, UPDATE_LOCATION } from '../../api';
+import { useEffect } from 'react';
 
 function Dashboard({ user, setUser }) {
   const navigate = useNavigate();
 
+  // real time location 
+  useEffect(() => {
+    if (!user) return;  // Only for logged in users
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+
+        try {
+          await axios.post(`${API_URL}${UPDATE_LOCATION}`, {
+            lat: latitude,
+            lng: longitude
+          }, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          });
+
+          console.log("Location updated successfully");
+        } catch (err) {
+          console.log("Location update failed");
+        }
+      },
+      (error) => {
+        console.log("Location permission denied");
+      },
+      { enableHighAccuracy: true }
+    );
+
+  }, [user]);
+
+  // logout function
   const handleLogout = async () => {
     await axios.post(`${API_URL}${AUTH_LOGOUT}`, {}, { withCredentials: true });
     setUser(null);

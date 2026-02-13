@@ -5,6 +5,7 @@ export const API_URL = import.meta.env.VITE_API_URL || import.meta.env.API_URL;
 export const AUTH_BASE = "/api/auth";
 export const AUTH_USER = "/api/users";
 export const COMMUNITY = "/api/community";
+export const LOCATION = "/api/location";
 
 // Auth Endpoints
 export const AUTH_LOGIN = `${AUTH_BASE}/login`;
@@ -28,6 +29,10 @@ export const AUTH_GAME_REQUESTS = `${AUTH_USER}/game-requests`;
 export const AUTH_TOTAL_ACCEPTED = `${AUTH_USER}/total-accepted`;
 export const AUTH_UPDATE_REQUESTS = `${AUTH_USER}/update-requests`;
 export const GAMEDETAILS = `${AUTH_USER}/gamedetails`;
+
+//location enmdpoints
+
+export const UPDATE_LOCATION = `${LOCATION}/update_location`;
 
 // Community Endpoints
 export const NEWCOMMUNITY = `${COMMUNITY}/newcommunity`;

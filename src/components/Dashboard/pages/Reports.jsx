@@ -17,7 +17,7 @@ function Reports() {
       try {
         const res = await axios.get(`${API_URL}${AUTH_LASTCREATEGAME}`);
         setGames(res.data);
-        console.log(res.data);
+        //console.log(res.data);
         const res2 = await axios.get(`${API_URL}${GAMEDETAILS}`);
         setGameDetails(res2.data);
       } catch (err) {
