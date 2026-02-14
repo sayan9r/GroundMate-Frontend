@@ -32,6 +32,8 @@ import CommunityProfile from './components/commmunity/CommunityProfile.jsx';
 import EditPost from './components/commmunity/EditPost.jsx';
 import CreateTournament from './components/commmunity/CreateTournament.jsx';
 import GlobalTournament from './components/commmunity/GlobalTournament.jsx';
+import NearbyTeammates from './components/Dashboard/pages/NearbyTeammates.jsx';
+import CreateGameRoom from './components/Dashboard/pages/CreateGameRoom.jsx';
 
 
 axios.defaults.withCredentials = true;
@@ -92,6 +94,10 @@ function App() {
          <Route path="/dashboard/turfgame" element={<TurfGame/>}/>
          <Route path="/dashboard/startgame/:gameId" element={<StartGame />} />
          <Route path="/dashboard/joinedgame" element={user ? <JoinedGame /> : <Login setUser={setUser}/> } />
+         <Route path="/dashboard/gameroom/:gameRoomId/nearby" element={user ? <NearbyTeammates /> : <Login setUser={setUser}/> } />
+         <Route path="/dashboard/creategameroom" element={user ? <CreateGameRoom user={user}/> : <Login setUser={setUser}/> } />
+
+
          <Route path="/community" element={user ? <Community/> : <Login setUser={setUser}/> } />
          <Route path="/community/makecommunity" element={user ? <MakeCommunity /> : <Login setUser={setUser}/>} />
          <Route path="/community/communitys-dashboard" element={user ? <Community_Dashboard /> : <Login setUser={setUser}/>} />

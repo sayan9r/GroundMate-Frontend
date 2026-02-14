@@ -28,7 +28,7 @@ function CreateGame({user}) {
     try{
             const res = await axios.post(`${API_URL}${AUTH_CREATEGAME}`,formData,{ withCredentials: true });
            // setUser(res.data.user);
-            navigate("/dashboard");
+            navigate("/dashboard/allcreategame");
 
         }catch(err){
             console.error("Login error:", err.response?.data || err.message);

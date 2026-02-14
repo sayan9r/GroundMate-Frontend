@@ -6,6 +6,7 @@ export const AUTH_BASE = "/api/auth";
 export const AUTH_USER = "/api/users";
 export const COMMUNITY = "/api/community";
 export const LOCATION = "/api/location";
+export const GAMEROOM = "/api/gameroom";
 
 // Auth Endpoints
 export const AUTH_LOGIN = `${AUTH_BASE}/login`;
@@ -31,8 +32,14 @@ export const AUTH_UPDATE_REQUESTS = `${AUTH_USER}/update-requests`;
 export const GAMEDETAILS = `${AUTH_USER}/gamedetails`;
 
 //location enmdpoints
-
 export const UPDATE_LOCATION = `${LOCATION}/update_location`;
+export const NEARBY_USERS = `${LOCATION}/nearby-user`;
+
+// gameroom endpoints
+export const CREATE_GAMEROOM = `${GAMEROOM}/create`;
+export const ADD_PLAYER = `${GAMEROOM}/add-player`;
+export const JOIN_REQUESTS = `${GAMEROOM}/join-requests`;
+
 
 // Community Endpoints
 export const NEWCOMMUNITY = `${COMMUNITY}/newcommunity`;

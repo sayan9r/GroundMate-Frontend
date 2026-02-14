@@ -18,14 +18,12 @@ import { useEffect } from 'react';
 function Dashboard({ user, setUser }) {
   const navigate = useNavigate();
 
-  // real time location 
   useEffect(() => {
-    if (!user) return;  // Only for logged in users
+    if (!user) return; 
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-
         try {
           await axios.post(`${API_URL}${UPDATE_LOCATION}`, {
             lat: latitude,
@@ -35,21 +33,16 @@ function Dashboard({ user, setUser }) {
               Authorization: `Bearer ${localStorage.getItem("token")}`
             }
           });
-
           console.log("Location updated successfully");
         } catch (err) {
           console.log("Location update failed");
         }
       },
-      (error) => {
-        console.log("Location permission denied");
-      },
+      (error) => { console.log("Location permission denied"); },
       { enableHighAccuracy: true }
     );
-
   }, [user]);
 
-  // logout function
   const handleLogout = async () => {
     await axios.post(`${API_URL}${AUTH_LOGOUT}`, {}, { withCredentials: true });
     setUser(null);
@@ -67,18 +60,21 @@ function Dashboard({ user, setUser }) {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-black border-2  border-t-blue-600">
+    // 1. Added h-screen and overflow-hidden to the main container
+    <div className="h-screen w-full bg-black border-t-2 border-t-blue-600 overflow-hidden">
+      
+      {/* 2. Added h-full to the flex container */}
+      <div className="flex flex-col md:flex-row h-full w-full">
 
-      {/* Main layout */}
-      <div className="flex flex-col md:flex-row min-h-screen w-full">
-
-        {/* ===== LEFT SIDEBAR ===== */}
+        {/* ===== LEFT SIDEBAR (FIXED) ===== */}
         <div
           className="
-            bg-gradient-to-r from-gray-900 to-black border border-r-blue-500
+            bg-gradient-to-r from-gray-900 to-black border-r border-blue-500
             p-4 sm:p-6
             flex flex-col items-center
             w-full md:w-1/5
+            md:h-full
+            overflow-y-auto
           "
         >
           {/* Profile */}
@@ -91,7 +87,7 @@ function Dashboard({ user, setUser }) {
 
           <h2 className="mt-3 text-lg sm:text-xl font-bold
             bg-gradient-to-r from-cyan-400 to-blue-500
-            bg-clip-text text-transparent">
+            bg-clip-text text-transparent text-center">
             {user.name}
           </h2>
 
@@ -100,7 +96,6 @@ function Dashboard({ user, setUser }) {
             {user.city}
           </div>
 
-          {/* Divider */}
           <div className="w-full h-px bg-blue-900 my-4 sm:my-6 opacity-50" />
 
           {/* Nav Links */}
@@ -125,8 +120,8 @@ function Dashboard({ user, setUser }) {
           </div>
         </div>
 
-        {/* ===== RIGHT CONTENT ===== */}
-        <div className="flex-1 bg-gradient-to-r from-black to-gray-800 p-4 sm:p-6 overflow-y-auto">
+        {/* ===== RIGHT CONTENT (SCROLLABLE) ===== */}
+        <div className="flex-1 bg-gradient-to-r from-black to-gray-800 p-4 sm:p-6 overflow-y-auto h-full scroll-smooth">
           <Reports />
         </div>
 
