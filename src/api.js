@@ -36,6 +36,7 @@ export const UPDATE_LOCATION = `${LOCATION}/update_location`;
 export const NEARBY_USERS = `${LOCATION}/nearby-user`;
 
 // gameroom endpoints
+export const CHECK_GAMEROOM = `${GAMEROOM}/check-gameroom`;
 export const CREATE_GAMEROOM = `${GAMEROOM}/create`;
 export const ADD_PLAYER = `${GAMEROOM}/add-player`;
 export const JOIN_REQUESTS = `${GAMEROOM}/join-requests`;

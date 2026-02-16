@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL, JOIN_REQUESTS } from "../../../api";
+import { API_URL, GAMEROOM, JOIN_REQUESTS } from "../../../api";
 import { Check, X } from "lucide-react";
 
 function JoinRequests() {
@@ -33,7 +33,7 @@ function JoinRequests() {
   const handleAction = async (id, status) => {
     try {
       await axios.put(
-        `${API_URL}/update-request/${id}`,
+        `${API_URL}${GAMEROOM}/update-request/${id}`,
         { status },
         {
           headers: {
@@ -92,7 +92,7 @@ function JoinRequests() {
               {/* Right Section - Buttons */}
               <div className="flex gap-3">
                 <button
-                  onClick={() => handleAction(req.id, "accept")}
+                  onClick={() => handleAction(req.id, "accepted")}
                   className="bg-green-600 hover:bg-green-700 p-2 rounded-full"
                 >
                   <Check size={18} />

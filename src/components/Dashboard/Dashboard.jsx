@@ -113,14 +113,14 @@ function Dashboard({ user, setUser }) {
       </div>
 
       {/* ===== MOBILE BOTTOM NAVIGATION ===== */}
-      <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[94%] max-w-sm bg-gray-900/95 backdrop-blur-lg border border-blue-500/40 rounded-3xl px-4 py-3 flex items-center justify-between shadow-[0_0_20px_rgba(0,112,243,0.3)] z-50">
+      <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[94%] max-w-sm bg-black backdrop-blur-lg border border-blue-500/40 rounded-3xl px-4 py-3 flex items-center justify-between shadow-[0_0_20px_rgba(0,112,243,0.3)] z-50">
         
         {/* Profile (Left) */}
         <div className="group relative">
           <img
             src={user.profile_image ? `${API_URL}${user.profile_image}` : "/default_image.png"}
             alt="User"
-            className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover cursor-pointer"
+            className="w-12 h-12 rounded-full border-2 border-blue-500 object-cover cursor-pointer"
             onClick={() => navigate("/dashboard")}
           />
           {/* <span className="absolute -top-10 left-0 scale-0 group-hover:scale-100 transition-all bg-blue-600 text-white text-[10px] px-2 py-1 rounded">Profile</span> */}

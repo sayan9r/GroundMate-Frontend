@@ -6,7 +6,7 @@ import {
   Trophy, Activity, Calendar, Users, MapPin, 
   ArrowRight, Sparkles, TrendingUp 
 } from "lucide-react";
-import { API_URL, AUTH_LASTCREATEGAME, GAMEDETAILS } from "../../../api";
+import { API_URL, AUTH_LASTCREATEGAME, CHECK_GAMEROOM, GAMEDETAILS } from "../../../api";
 import LoadingScreen from "../../../LoadingScreen.jsxLoadingScreen";
 import JoinRequests from "./JoinRequests";
 import { NavbarButton } from "../../ui/resizable-navbar";
@@ -14,29 +14,51 @@ import { NavbarButton } from "../../ui/resizable-navbar";
 function Reports() {
   const [games, setGames] = useState(null);
   const [gamedetails, setGameDetails] = useState(null);
+  const [gameroom, setGameroom] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [hasRoom, setHasRoom] = useState(false);
+
 
   useEffect(() => {
-    const fetchGame = async () => {
-      try {
-        const res = await axios.get(`${API_URL}${AUTH_LASTCREATEGAME}`);
-        setGames(res.data);
-        const res2 = await axios.get(`${API_URL}${GAMEDETAILS}`);
-        setGameDetails(res2.data);
-      } catch (err) {
-        if (err.response?.status === 404) {
-          setError("Ready to lead? Create your first game and build your squad! ✌️");
-        } else {
-          setError("Something went wrong. Please try again later.");
-        }
-      } finally {
-        setLoading(false);
+  const fetchGame = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const [res, res2, res3] = await Promise.all([
+        axios.get(`${API_URL}${AUTH_LASTCREATEGAME}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        }),
+        axios.get(`${API_URL}${GAMEDETAILS}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        }),
+        axios.get(`${API_URL}${CHECK_GAMEROOM}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+      ]);
+
+      setGames(res.data);
+      setGameDetails(res2.data);
+      setHasRoom(res3.data.hasRoom);
+      setGameroom(res3.data.gameroom);
+
+      //console.log(res3.data.gameroom);
+
+    } catch (err) {
+      if (err.response?.status === 404) {
+        setError("Ready to lead? Create your first game and build your squad! ✌️");
+      } else {
+        setError("Something went wrong. Please try again later.");
       }
-    };
-    fetchGame();
-  }, []);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchGame();
+}, []);
+
 
   if (loading) return <LoadingScreen />;
 
@@ -141,11 +163,38 @@ function Reports() {
               </button>
             ))}
             <button
-              onClick={() => navigate("/dashboard/creategameroom")}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 font-bold hover:shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all active:scale-95"
-            >
-              + Create Game Room
-            </button>
+  onClick={() =>
+    hasRoom
+      ? navigate(`/dashboard/gameroom/${gameroom?.id}`)
+      : navigate("/dashboard/creategameroom")
+  }
+  className={`
+    relative overflow-hidden w-full py-2 rounded-xl font-bold transition-all active:scale-95
+    ${hasRoom 
+      ? "bg-gradient-to-r from-green-500 via-blue-600 to-cyan-500 animate-pulse shadow-[0_0_25px_rgba(34,197,94,0.5)] border border-green-400" 
+      : "bg-gradient-to-r from-blue-600 to-cyan-500 hover:shadow-[0_0_20px_rgba(37,99,235,0.3)]"
+    }
+  `}
+>
+  {/* Energetic Shimmer Overlay - Only shows when hasRoom is true */}
+  {hasRoom && (
+    <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+    </div>
+  )}
+
+  <span className="relative z-10 flex items-center justify-center gap-2">
+    {hasRoom && (
+      <span className="flex h-2 w-2">
+        <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-white opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+      </span>
+    )}
+    {hasRoom ? "VIEW LIVE GAME ROOM" : "+ Create Game Room"}
+  </span>
+</button>
+
+
           </div>
         </motion.div>
 
