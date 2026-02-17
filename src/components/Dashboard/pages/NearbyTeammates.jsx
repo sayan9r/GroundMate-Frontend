@@ -103,7 +103,7 @@ function NearbyTeammates() {
                 <div className="flex items-center gap-5">
                   <div className="relative">
                     <img
-                      src={user.profile_image ? `http://localhost:5000/uploads/${user.image}` : "/default_image.png"}
+                      src={`${API_URL}${user.profile_image}`} 
                       alt={user.name}
                       className="w-16 h-16 rounded-2xl object-cover ring-2 ring-gray-800 group-hover:ring-blue-500 transition-all"
                     />

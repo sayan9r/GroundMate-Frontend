@@ -23,29 +23,33 @@ function Reports() {
 
   useEffect(() => {
   const fetchGame = async () => {
-    try {
-      const token = localStorage.getItem("token");
+   try {
+  const token = localStorage.getItem("token");
 
-      const [res, res2, res3] = await Promise.all([
-        axios.get(`${API_URL}${AUTH_LASTCREATEGAME}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        }),
-        axios.get(`${API_URL}${GAMEDETAILS}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        }),
-        axios.get(`${API_URL}${CHECK_GAMEROOM}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
-      ]);
+  // 1️⃣ Last Created Game
+  const res = await axios.get(`${API_URL}${AUTH_LASTCREATEGAME}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  setGames(res.data);
 
-      setGames(res.data);
-      setGameDetails(res2.data);
-      setHasRoom(res3.data.hasRoom);
-      setGameroom(res3.data.gameroom);
+  // 2️⃣ Game Details
+  const res2 = await axios.get(`${API_URL}${GAMEDETAILS}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  setGameDetails(res2.data);
 
-      //console.log(res3.data.gameroom);
+  // 3️⃣ Check Game Room
+  const res3 = await axios.get(`${API_URL}${CHECK_GAMEROOM}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  setHasRoom(res3.data.hasRoom);
+  setGameroom(res3.data.gameroom);
 
-    } catch (err) {
+  if (res3.data.gameroom) {
+    console.log(res3.data.gameroom.id);
+  }
+
+}catch (err) {
       if (err.response?.status === 404) {
         setError("Ready to lead? Create your first game and build your squad! ✌️");
       } else {
@@ -165,7 +169,7 @@ function Reports() {
             <button
   onClick={() =>
     hasRoom
-      ? navigate(`/dashboard/gameroom/${gameroom?.id}`)
+      ? navigate(`/dashboard/gameroom/${gameroom.id}`)
       : navigate("/dashboard/creategameroom")
   }
   className={`

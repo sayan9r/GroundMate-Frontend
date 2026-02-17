@@ -37,6 +37,7 @@ import CreateGameRoom from './components/Dashboard/pages/CreateGameRoom.jsx';
 import GameRoom from './components/Dashboard/pages/GameRoom.jsx';
 
 
+
 axios.defaults.withCredentials = true;
 
 
@@ -97,7 +98,7 @@ function App() {
          <Route path="/dashboard/joinedgame" element={user ? <JoinedGame /> : <Login setUser={setUser}/> } />
          <Route path="/dashboard/gameroom/:gameRoomId/nearby" element={user ? <NearbyTeammates /> : <Login setUser={setUser}/> } />
          <Route path="/dashboard/creategameroom" element={user ? <CreateGameRoom user={user}/> : <Login setUser={setUser}/> } />
-         <Route path="/dashboard/gameroom/:gameRoomId" element={user ? <GameRoom/> : <Login setUser={setUser}/> } />
+         <Route path="/dashboard/gameroom/:gameroomId" element={user ? <GameRoom/> : <Login setUser={setUser}/> } />
 
 
          <Route path="/community" element={user ? <Community/> : <Login setUser={setUser}/> } />
