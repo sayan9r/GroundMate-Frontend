@@ -13,7 +13,6 @@ import LoadingScreen from '../../../LoadingScreen.jsxLoadingScreen';
 
 const GameRoom = ({ user }) => {
   const { gameroomId } = useParams();
-  console.log("Gameroom ID from URL:", gameroomId);
   const [roomData, setRoomData] = useState(null);
   const [members, setMembers] = useState([]);
   const [message, setMessage] = useState("");
@@ -31,6 +30,7 @@ const GameRoom = ({ user }) => {
         );
 
         setRoomData(res.data.creator);
+        //console.log("Room Data:", res.data.creator);
         setMembers(res.data.members);
 
       } catch (err) {
@@ -47,7 +47,7 @@ const GameRoom = ({ user }) => {
     return <LoadingScreen/>;
   }
   // Format time
-  const createdTime = new Date(roomData.created_at);
+  const createdTime = new Date(roomData.created_at) || NULL;
   const validUntil = new Date(createdTime.getTime() + 5 * 60 * 60 * 1000);
 
   return (
@@ -101,7 +101,7 @@ const GameRoom = ({ user }) => {
               <div>
                 <p className="text-gray-500 text-[10px] uppercase">Created At</p>
                 <p className="text-gray-200 font-mono">
-                  {createdTime.toLocaleString()}
+                 {createdTime.toLocaleString()}
                 </p>
               </div>
             </div>

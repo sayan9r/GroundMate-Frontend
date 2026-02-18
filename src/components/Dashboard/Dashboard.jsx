@@ -15,10 +15,13 @@ import axios from 'axios';
 import Reports from "./pages/Reports";
 import { API_URL, AUTH_LOGOUT, UPDATE_LOCATION } from '../../api';
 import { useEffect } from 'react';
+import LoadingScreen from '../../LoadingScreen.jsxLoadingScreen';
 
 function Dashboard({ user, setUser }) {
   const navigate = useNavigate();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [usercity, setUserCity] = useState(user.city);
 
   useEffect(() => {
     if (!user) return; 
@@ -35,14 +38,39 @@ function Dashboard({ user, setUser }) {
               Authorization: `Bearer ${localStorage.getItem("token")}`
             }
           });
+          // api to get user city from lat and long
+        const res = await axios.get(
+  "https://api.bigdatacloud.net/data/reverse-geocode-client",
+  {
+    params: {
+      latitude: latitude,
+      longitude: longitude,
+      localityLanguage: "en"
+    },
+    withCredentials: false
+  }
+);
+console.log(res.data.city);
+          // Update user city in state
+          setUserCity(res.data.city);
+
         } catch (err) {
           console.log("Location update failed");
         }
+        finally {
+        setLoading(false);
+      }
       },
-      (error) => { console.log("Location permission denied"); },
+      (error) => { console.log("Location permission denied");
+                    setLoading(false);  // ← IMPORTANT
+       },
       { enableHighAccuracy: true }
     );
   }, [user]);
+
+   if (loading) { 
+    return <LoadingScreen/>;
+  }
 
   const handleLogout = async () => {
     await axios.post(`${API_URL}${AUTH_LOGOUT}`, {}, { withCredentials: true });
@@ -89,7 +117,7 @@ function Dashboard({ user, setUser }) {
           </h2>
           <div className="flex items-center gap-2 text-gray-400 mt-1 text-sm">
             <IconMapPin className="h-4 w-4 text-blue-400" />
-            {user.city}
+            {usercity}
           </div>
           <div className="w-full h-px bg-blue-900 my-6 opacity-50" />
           <div className="w-full flex flex-col gap-2">

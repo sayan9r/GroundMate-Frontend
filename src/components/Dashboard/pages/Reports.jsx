@@ -45,9 +45,9 @@ function Reports() {
   setHasRoom(res3.data.hasRoom);
   setGameroom(res3.data.gameroom);
 
-  if (res3.data.gameroom) {
-    console.log(res3.data.gameroom.id);
-  }
+  // if (res3.data.gameroom) {
+  //   console.log(res3.data.gameroom.id);
+  // }
 
 }catch (err) {
       if (err.response?.status === 404) {
