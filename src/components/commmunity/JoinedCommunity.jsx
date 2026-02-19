@@ -1,9 +1,10 @@
 import React, { useState , useEffect } from 'react'
 import axios from "axios";
 import { API_URL, JOINCOMMUNITY, JOINEDCOMMUNITIES } from "../../api";
-import { IconMapPin, IconUsersGroup } from "@tabler/icons-react";
+import { IconMapPin, IconUsersGroup,IconHourglassHigh } from "@tabler/icons-react";
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '../../LoadingScreen.jsxLoadingScreen';
+
 
 function JoinedCommunity() {
   const [communities, setCommunities] = useState([]);
@@ -104,12 +105,25 @@ function JoinedCommunity() {
         ))}
       </div>
 
-      {/* Empty State */}
-      {filteredCommunities.length === 0 && (
-        <p className="text-gray-400 mt-10">
-          No communities found.
-        </p>
-      )}
+     {/* Empty State */}
+{filteredCommunities.length === 0 && (
+  <div className="flex flex-col items-center justify-center text-center mt-16">
+    
+    <p className="text-gray-400 mb-6 text-lg">
+      No communities found.
+    </p>
+
+    <button
+      onClick={() => navigate("/community/join-community")}
+      className="flex items-center gap-2 bg-green-100 text-green-700 hover:bg-green-200 px-6 py-3 rounded-full shadow-md transition duration-200"
+    >
+      <IconHourglassHigh size={20} />
+      <span className="font-semibold">Join a Community</span>
+    </button>
+
+  </div>
+)}
+
     </div>
   );
 }

@@ -50,7 +50,7 @@ function Dashboard({ user, setUser }) {
     withCredentials: false
   }
 );
-console.log(res.data.city);
+           //console.log(res.data.city);
           // Update user city in state
           setUserCity(res.data.city);
 
@@ -73,9 +73,17 @@ console.log(res.data.city);
   }
 
   const handleLogout = async () => {
+    try{
+      setLoading(true);
     await axios.post(`${API_URL}${AUTH_LOGOUT}`, {}, { withCredentials: true });
     setUser(null);
     navigate("/");
+    }catch (err) {
+          console.log("Logout failed");
+        }
+        finally {
+        setLoading(false);
+      }
   };
 
   const links = [

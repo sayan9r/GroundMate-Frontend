@@ -4,6 +4,7 @@ import CustomButton from '../CustomBUtton'
 import { Link, useNavigate } from 'react-router-dom'
 import { API_URL, AUTH_REGISTER } from '../../api';
 import signupBg from '././../../assets/covar_image.jpg';
+import LoadingScreen from '../../LoadingScreen.jsxLoadingScreen';
 
 
 function SignUp({setUser}) {
@@ -14,6 +15,7 @@ function SignUp({setUser}) {
     email: '',
     password: ''
   });
+  const [loading,setLoading] = useState(false);
 
   const [error,setError] = useState();
   const navigate = useNavigate();
@@ -28,6 +30,7 @@ function SignUp({setUser}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
+      setLoading(true);
             const res = await axios.post(`${API_URL}${AUTH_REGISTER}`,form,{ withCredentials: true });
             setUser(res.data.user);
             navigate("/");
@@ -35,8 +38,14 @@ function SignUp({setUser}) {
         }catch(err){
             console.error("Login error:", err.response?.data || err.message);
             setError(err.response?.data?.message || "Register failed");
+        }finally{
+          setLoading(false);
         }
 
+  }
+
+  if(loading){
+    return <LoadingScreen/>;
   }
 
   return (

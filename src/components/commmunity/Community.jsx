@@ -68,7 +68,16 @@ export default function Community() {
           <span className="font-semibold">Join a Community</span>
         </div>
 
-        <div className="flex items-center space-x-2 bg-green-100 text-green-700 hover:bg-blue-400 px-4 py-2 rounded-full shadow-md cursor-pointer">
+        <div
+         onClick={()=> navigate("/community/joined-community")}
+         className="flex items-center space-x-2 bg-green-100 text-green-700 hover:bg-blue-400 px-4 py-2 rounded-full shadow-md cursor-pointer">
+          <IconHourglassHigh size={20} />
+          <span className="font-semibold">Joined Community</span>
+        </div>
+
+        <div
+         onClick={()=> navigate("/community/global-blogs")}
+         className="flex items-center space-x-2 bg-green-100 text-green-700 hover:bg-blue-400 px-4 py-2 rounded-full shadow-md cursor-pointer">
           <IconHourglassHigh size={20} />
           <span className="font-semibold">Global Community</span>
         </div>

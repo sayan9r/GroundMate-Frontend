@@ -39,6 +39,7 @@ function JoinCommunity() {
 
   const handleJoinCommunity = async (communityId) => {
   try {
+    setLoading(true);
     const res = await axios.post(
       `${API_URL}${REQUESTJOIN}`,
       { communityId },
@@ -48,6 +49,8 @@ function JoinCommunity() {
     alert("✅ Join request sent to community admin");
   } catch (err) {
     alert(err.response?.data?.message || "Something went wrong");
+  } finally {
+    setLoading(false);
   }
 };
 

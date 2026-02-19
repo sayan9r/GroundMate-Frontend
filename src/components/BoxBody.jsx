@@ -28,7 +28,7 @@ export function BoxBody() {
 
         {/* Buttons */}
         <div className="relative z-10 mt-8 flex w-full justify-center gap-6">
-          <NavbarButton className="hover:bg-gradient-to-r hover:from-black hover:via-blue-300 hover:to-blue-500" variant="primary" onClick={() => navigate("/login")}>Get Started</NavbarButton>
+          <NavbarButton className="hover:bg-gradient-to-r hover:from-black hover:via-blue-300 hover:to-blue-500" variant="primary" onClick={() => navigate("/dashboard")}>Get Started</NavbarButton>
 
           <NavbarButton className="hover:bg-gradient-to-r hover:from-blue-500 hover:via-blue-300 hover:to-black" variant="primary" onClick={() => navigate("/about")}>know more</NavbarButton>
         </div>
