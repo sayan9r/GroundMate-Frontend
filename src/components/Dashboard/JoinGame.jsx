@@ -8,6 +8,7 @@ import LoadingScreen from '../../LoadingScreen.jsxLoadingScreen';
 function JoinGame() {
      const [games,setGames] = useState([]);
      const [loading, setLoading] = useState(true);
+     const [filter, setFilter] = useState(6371); // default to all games within 6371 km (Earth's radius)
     // const [buttontext,setButtonText] = ("Join");
      const navigate = useNavigate();
     
@@ -16,7 +17,8 @@ function JoinGame() {
     
         const fetchGame = async () => {
           try{
-            const res = await axios.get(`${API_URL}${AUTH_JOINGAME}`,{ withCredentials: true });
+            const res = await axios.get(`${API_URL}${AUTH_JOINGAME}?distance=${filter}`,
+              { withCredentials: true });
             setGames(res.data)
             
     
@@ -27,7 +29,7 @@ function JoinGame() {
           }
         }
         fetchGame();
-        },[]);
+        },[filter]);
 
           if (loading) {
     return (
@@ -43,6 +45,17 @@ function JoinGame() {
   <h2 className="text-3xl font-semibold text-blue-300 mb-6 text-center">
     Games near you 
   </h2>
+  <div className="flex justify-between items-center mb-6">
+  <select
+    value={filter}
+    onChange={(e) => setFilter(e.target.value)}
+    className="bg-gray-800 text-white px-3 py-2 rounded-md"
+  >
+    <option value="6371">All Games</option>
+    <option value="2">Within 2 km</option>
+    <option value="5">Within 5 km</option>
+  </select>
+</div>
 
   {games.length > 0 ? (
     <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -59,11 +72,11 @@ function JoinGame() {
               <span className="font-medium text-gray-800">City:</span> {game.city}
             </p>
             <p className="text-sm text-gray-700 mb-1">
-              <span className="font-medium text-gray-800">Team Length:</span> {game.team_length || game.teamlength}
+              <span className="font-medium text-gray-800">Team Length:</span> { game.teamlength}
             </p>
             <p className="text-sm text-gray-700 mb-1">
               <span className="font-medium text-gray-800">Date:</span>{" "}
-              {new Date(game.game_date || game.gamedate).toLocaleDateString()}
+              {new Date(game.game_date || game.gamedate).toLocaleDateString("en-GB")}
             </p>
             <p className="text-sm text-gray-700 mb-1">
               <span className="font-medium text-gray-800">Start Time:</span> {game.start_time || game.starttime}
@@ -102,7 +115,7 @@ function JoinGame() {
       ))}
     </div>
   ) : (
-    <p className="text-center text-gray-600 font-medium">No games created yet.</p>
+    <p className="text-center text-gray-600 font-medium">No games present yet.</p>
   )}
 </div>
 

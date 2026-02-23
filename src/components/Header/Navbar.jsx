@@ -81,17 +81,29 @@ export function NavbarDemo({user,setUser}) {
             ))}
             <div className="flex w-full flex-col gap-4">
               {user ?  (
-                <NavbarButton variant="primary" onClick={() => navigate("/dashboard")}>Profile</NavbarButton>
+                <NavbarButton 
+                  variant="primary" 
+                  onClick={() => {
+                  navigate("/dashboard"),
+                  setIsMobileMenuOpen(false);
+                }}
+                > Profile </NavbarButton>
               ) : (
                 <>
                 <NavbarButton
-                onClick={() => navigate("/login")}
+                onClick={() => {
+                  navigate("/login"),
+                  setIsMobileMenuOpen(false);
+                }}
                 variant="primary"
                 className="w-full">
                 Login
               </NavbarButton>
               <NavbarButton
-                onClick={() => navigate("/signup")}
+                onClick={() => {
+                  navigate("/signup"),
+                  setIsMobileMenuOpen(false);
+                }}
                 variant="primary"
                 className="w-full">
                 Sign up

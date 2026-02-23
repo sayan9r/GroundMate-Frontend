@@ -39,6 +39,7 @@ function ContactUs() {
 
       setTimeout(() => {
         setSubmitting(false);
+        alert("Message sent successfully!");
         navigate("/");
       }, 1200);
     } catch (err) {

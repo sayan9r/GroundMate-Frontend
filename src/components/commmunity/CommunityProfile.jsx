@@ -109,7 +109,8 @@ const handleDeletePost = async (postId,communityId) => {
           {community.community_name || "Community"}
         </h2>
 
-        <p className="text-gray-300 text-sm mt-1 hover:text-blue-400 transition">
+        <p 
+        className="text-gray-300 text-sm mt-1 hover:text-blue-400 transition">
           <span className="font-semibold text-white ">
             {community.community_length}
           </span>{" "}
