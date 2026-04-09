@@ -56,10 +56,16 @@ function JoinRequests() {
       </div>
     );
   }
+  if(requests.length === 0){
+    return(
+      <h1 className="text-2xl font-bold mb-6">No Join Requests</h1> 
+
+    ); 
+  }
 
   return (
     <div className="min-h-auto bg-gray-950 text-white p-6">
-      <h1 className="text-2xl font-bold mb-6">Pending Join Requests</h1>
+      {/* <h1 className="text-2xl font-bold mb-6">Pending Join Requests</h1> */}
 
     {requests.map((req) => (
   <div

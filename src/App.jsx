@@ -47,6 +47,10 @@ function App() {
   const [loading,setLoading] = useState(true);
 
   useEffect(()=> {
+
+    // 🔥 Wake up backend (Render free tier fix)
+    axios.get(`${API_URL}/ping`).catch(() => {});
+
      const fetchUser = async ()=> {
       try{
         const res = await axios.get(`${API_URL}${AUTH_BASE}/me`);
