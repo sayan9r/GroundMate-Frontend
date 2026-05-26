@@ -35,6 +35,7 @@ import GlobalTournament from './components/commmunity/GlobalTournament.jsx';
 import NearbyTeammates from './components/Dashboard/pages/NearbyTeammates.jsx';
 import CreateGameRoom from './components/Dashboard/pages/CreateGameRoom.jsx';
 import GameRoom from './components/Dashboard/pages/GameRoom.jsx';
+import LoadingScreen from './LoadingScreen.jsxLoadingScreen.jsx';
 
 
 
@@ -56,7 +57,7 @@ function App() {
         const res = await axios.get(`${API_URL}${AUTH_BASE}/me`);
         setUser(res.data);
         setLoading(false);
-
+        
       }catch(err){
         setUser(null);
         setLoading(false);
@@ -70,7 +71,7 @@ function App() {
 
   
   if(loading){
-    return <div>Loading...</div>
+    return <div><LoadingScreen/></div>
   }
 
   return (
